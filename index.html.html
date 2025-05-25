@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harmony | Music Learning</title>
+    <title>Let the heart sing</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,10 +33,10 @@
             min-height: 100vh;
         }
         
-        /* Enhanced Banner */
+        /* Simplified Banner */
         .banner {
             width: 100%;
-            height: 250px;
+            height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -72,7 +72,7 @@
         .banner-title {
             font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0;
             line-height: 1.2;
             position: relative;
             display: inline-block;
@@ -88,50 +88,6 @@
             height: 4px;
             background: var(--light);
             border-radius: 2px;
-        }
-        
-        .banner-subtitle {
-            font-size: 1.2rem;
-            font-weight: 400;
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-        }
-        
-        .banner-btn {
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            background: var(--light);
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .banner-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: all 0.5s;
-        }
-        
-        .banner-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        .banner-btn:hover::before {
-            left: 100%;
         }
         
         .music-notes {
@@ -293,12 +249,6 @@
             line-height: 1.3;
         }
         
-        .content-subtitle {
-            color: var(--gray);
-            font-weight: 400;
-            font-size: 0.95rem;
-        }
-        
         .content-body {
             margin-bottom: 2rem;
         }
@@ -340,13 +290,6 @@
             color: white;
         }
         
-        .btn-secondary {
-            background: white;
-            color: var(--dark);
-            border: 1px solid var(--light-gray);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-        }
-        
         .media-container {
             background: var(--light-gray);
             border-radius: 12px;
@@ -369,23 +312,44 @@
             border: 1px solid var(--light-gray);
         }
         
+        /* Audio section styles */
+        .audio-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .audio-section-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .audio-section-title i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .audio-section-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 0.75rem;
+        }
+        
         /* Tablet and Desktop Enhancements */
         @media (min-width: 768px) {
             .banner {
-                height: 300px;
+                height: 200px;
             }
             
             .banner-title {
                 font-size: 3rem;
             }
             
-            .banner-subtitle {
-                font-size: 1.4rem;
-            }
-            
             .main-wrapper {
                 flex-direction: row;
-                min-height: calc(100vh - 300px);
+                min-height: calc(100vh - 200px);
             }
             
             .sidebar {
@@ -428,7 +392,7 @@
         /* Desktop-only styles */
         @media (min-width: 1025px) {
             .banner {
-                height: 350px;
+                height: 200px;
             }
             
             .banner-title {
@@ -452,7 +416,7 @@
     </style>
 </head>
 <body>
-    <!-- Enhanced Banner with Background Image -->
+    <!-- Simplified Banner with Background Image -->
     <div class="banner">
         <div class="banner-overlay"></div>
         
@@ -462,16 +426,14 @@
         <i class="fas fa-music music-notes"></i>
         
         <div class="banner-content">
-            <h1 class="banner-title">Master Music Theory</h1>
-            <p class="banner-subtitle">Interactive lessons for all skill levels</p>
-            <button class="banner-btn">Start Learning</button>
+            <h1 class="banner-title">Let the heart sing</h1>
         </div>
     </div>
     
     <!-- Main Content Wrapper -->
     <div class="main-wrapper">
         <div class="sidebar" id="sidebar">
-            <div class="logo">Harmony</div>
+            <div class="logo">Let the heart sing</div>
             
             <div class="chapter-list" id="chapterList">
                 <!-- Chapters will be inserted here -->
@@ -486,7 +448,7 @@
     </div>
 
 <script>
-    // Sample chapter data with dummy URLs
+    // Sample chapter data with multiple audio sections
     const chapters = [
         { 
             id: 1,
@@ -497,7 +459,23 @@
                 title: "Music Fundamentals",
                 subtitle: "Building blocks of music theory",
                 text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
-                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                audioSections: [
+                    {
+                        title: "Introduction to Pitch",
+                        description: "Understanding high and low sounds in music",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                    },
+                    {
+                        title: "Rhythm Basics",
+                        description: "Introduction to beat and tempo",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+                    },
+                    {
+                        title: "Scales and Intervals",
+                        description: "How notes relate to each other",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+                    }
+                ],
                 pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
                 notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
             }
@@ -511,7 +489,23 @@
                 title: "Rhythm Mastery",
                 subtitle: "The heartbeat of music",
                 text: "Rhythm is what makes music move and flow. This chapter will teach you how to recognize, read, and create various rhythmic patterns. We'll cover time signatures, note durations, syncopation, and polyrhythms to develop your timing and groove.",
-                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                audioSections: [
+                    {
+                        title: "Time Signatures Explained",
+                        description: "Understanding 4/4, 3/4 and other time signatures",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+                    },
+                    {
+                        title: "Syncopation Techniques",
+                        description: "Creating off-beat rhythms",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+                    },
+                    {
+                        title: "Polyrhythms",
+                        description: "Playing multiple rhythms simultaneously",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
+                    }
+                ],
                 pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
                 notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Rhythm_notation.svg/1200px-Rhythm_notation.svg.png"
             }
@@ -525,49 +519,83 @@
                 title: "Melodic Structures",
                 subtitle: "The art of musical lines",
                 text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
-                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+                audioSections: [
+                    {
+                        title: "Major vs Minor Melodies",
+                        description: "The emotional impact of scales",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                    },
+                    {
+                        title: "Phrasing Techniques",
+                        description: "Creating musical sentences",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
+                    },
+                    {
+                        title: "Motif Development",
+                        description: "Expanding musical ideas",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                    }
+                ],
                 pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
                 notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
             }
         },
-        { 
+            { 
             id: 4,
             number: "04",
-            title: "Harmonic Theory", 
-            description: "Chords and progressions",
+            title: "Melodic Structures", 
+            description: "Creating memorable melodies",
             content: {
-                title: "Harmonic Theory",
-                subtitle: "The science of chords",
-                text: "Harmony adds depth and emotion to music. This chapter explores chord construction, harmonic function, and progression patterns. You'll understand how chords work together to create tension and resolution in musical compositions.",
-                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Chord_notation.svg/1200px-Chord_notation.svg.png"
-            }
-        },
-        { 
-            id: 5,
-            number: "05",
-            title: "Composition Techniques", 
-            description: "From idea to full piece",
-            content: {
-                title: "Composition Techniques",
-                subtitle: "Crafting complete musical works",
-                text: "Now we'll put everything together. Learn professional techniques for developing musical ideas into complete compositions. We'll cover song structure, instrumentation, arrangement, and the creative process used by master composers.",
-                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+                title: "Melodic Structures",
+                subtitle: "The art of musical lines",
+                text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
+                audioSections: [
+                    {
+                        title: "Major vs Minor Melodies",
+                        description: "The emotional impact of scales",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                    },
+                    {
+                        title: "Phrasing Techniques",
+                        description: "Creating musical sentences",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
+                    },
+                    {
+                        title: "Motif Development",
+                        description: "Expanding musical ideas",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                    }
+                ],
                 pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
                 notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
             }
         },
-        { 
-            id: 6,
-            number: "06",
-            title: "Music History", 
-            description: "Evolution through the ages",
+            { 
+            id: 5,
+            number: "05",
+            title: "Melodic Structures", 
+            description: "Creating memorable melodies",
             content: {
-                title: "Music History",
-                subtitle: "A journey through musical eras",
-                text: "Understanding music's evolution helps contextualize modern practices. This chapter traces Western music from ancient times through contemporary genres, highlighting key developments, composers, and cultural influences that shaped music today.",
-                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+                title: "Melodic Structures",
+                subtitle: "The art of musical lines",
+                text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
+                audioSections: [
+                    {
+                        title: "Major vs Minor Melodies",
+                        description: "The emotional impact of scales",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                    },
+                    {
+                        title: "Phrasing Techniques",
+                        description: "Creating musical sentences",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
+                    },
+                    {
+                        title: "Motif Development",
+                        description: "Expanding musical ideas",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                    }
+                ],
                 pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
                 notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
             }
@@ -577,7 +605,6 @@
     // DOM elements
     const chapterList = document.getElementById('chapterList');
     const contentContainer = document.getElementById('contentContainer');
-    const bannerBtn = document.querySelector('.banner-btn');
     
     // Generate chapter list
     chapters.forEach(chapter => {
@@ -597,13 +624,6 @@
     // Set first chapter as active by default
     setActiveChapter(chapters[0]);
     document.querySelector('.chapter-item').classList.add('active');
-    
-    // Banner button click - scroll to content
-    bannerBtn.addEventListener('click', () => {
-        document.querySelector('.main-wrapper').scrollIntoView({ 
-            behavior: 'smooth' 
-        });
-    });
     
     // Chapter click event
     chapterList.addEventListener('click', (e) => {
@@ -641,39 +661,44 @@
         contentContainer.classList.remove('active');
         
         setTimeout(() => {
+            // Generate HTML for all audio sections
+            const audioSectionsHTML = chapter.content.audioSections.map(section => `
+                <div class="media-container audio-section">
+                    <h3 class="audio-section-title">
+                        <i class="fas fa-headphones"></i>
+                        ${section.title}
+                    </h3>
+                    <p class="audio-section-desc">${section.description}</p>
+                    <audio controls class="audio-player">
+                        <source src="${section.audio}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            `).join('');
+            
             contentContainer.innerHTML = `
                 <div class="content-header">
                     <h1 class="content-title">${chapter.content.title}</h1>
-                    <p class="content-subtitle">${chapter.content.subtitle}</p>
                 </div>
                 
                 <div class="content-body">
                     <p class="content-text">${chapter.content.text}</p>
                     
-                    <div class="media-container">
-                        <h3 style="margin-bottom: 0.75rem; font-weight: 500; color: var(--dark);">
-                            <i class="fas fa-headphones" style="margin-right: 0.5rem; color: var(--primary);"></i>
-                            Audio Lesson
-                        </h3>
-                        <audio controls class="audio-player">
-                            <source src="${chapter.content.audio}" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
+                    ${audioSectionsHTML}
                     
-                    <div class="media-container">
+                <!--   <div class="media-container">
                         <h3 style="margin-bottom: 0.75rem; font-weight: 500; color: var(--dark);">
                             <i class="fas fa-music" style="margin-right: 0.5rem; color: var(--primary);"></i>
                             Musical Notation
                         </h3>
                         <img src="${chapter.content.notation}" alt="Musical notation" class="notation-image">
-                    </div>
+                    </div> -->
                 </div>
                 
                 <div class="action-buttons">
                     <a href="${chapter.content.pdf}" class="btn btn-primary" target="_blank">
                         <i class="fas fa-file-pdf"></i>
-                        View PDF
+                        Notation
                     </a>
                 </div>
             `;
