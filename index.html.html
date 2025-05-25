@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harmony | Music Learning</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --secondary: #7c3aed;
+            --accent: #ec4899;
+            --light: #ffffff;
+            --dark: #111827;
+            --gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --sidebar-width: 350px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+        }
+        
+        /* Enhanced Banner */
+        .banner {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a5d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.85) 0%, rgba(124, 58, 237, 0.85) 100%);
+            z-index: 2;
+        }
+        
+        .banner-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            max-width: 800px;
+            color: white;
+            padding: 2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .banner-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .banner-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--light);
+            border-radius: 2px;
+        }
+        
+        .banner-subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .banner-btn {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            background: var(--light);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .banner-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s;
+        }
+        
+        .banner-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .banner-btn:hover::before {
+            left: 100%;
+        }
+        
+        .music-notes {
+            position: absolute;
+            z-index: 2;
+            opacity: 0.3;
+            animation: float 5s infinite ease-in-out;
+        }
+        
+        .music-notes:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            font-size: 1.5rem;
+            animation-delay: 0s;
+        }
+        
+        .music-notes:nth-child(2) {
+            top: 30%;
+            right: 15%;
+            font-size: 1.2rem;
+            animation-delay: 1s;
+        }
+        
+        .music-notes:nth-child(3) {
+            bottom: 20%;
+            left: 15%;
+            font-size: 1.8rem;
+            animation-delay: 2s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        /* Main Layout */
+        .main-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Sidebar with chapters */
+        .sidebar {
+            background: var(--light);
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+            z-index: 10;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        
+        .chapter-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .chapter-item {
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            background: var(--light);
+            border: 1px solid var(--light-gray);
+            font-size: 0.95rem;
+        }
+        
+        .chapter-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            transform: translateX(-10px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .chapter-item:hover {
+            background: var(--light-gray);
+        }
+        
+        .chapter-item.active {
+            background: var(--light-gray);
+            border-color: rgba(79, 70, 229, 0.3);
+        }
+        
+        .chapter-item.active::before {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .chapter-number {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .chapter-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .chapter-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+            line-height: 1.4;
+            display: none;
+        }
+        
+        /* Main content area */
+        .main-content {
+            background: var(--light);
+        }
+        
+        .content-container {
+            padding: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .content-container.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .content-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        
+        .content-subtitle {
+            color: var(--gray);
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+        
+        .content-body {
+            margin-bottom: 2rem;
+        }
+        
+        .content-text {
+            line-height: 1.6;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: all 0.3s;
+            border: none;
+            font-size: 0.9rem;
+        }
+        
+        .btn i {
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--dark);
+            border: 1px solid var(--light-gray);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .media-container {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .audio-player {
+            width: 100%;
+            margin-top: 0.75rem;
+            border-radius: 8px;
+        }
+        
+        .notation-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--light-gray);
+        }
+        
+        /* Tablet and Desktop Enhancements */
+        @media (min-width: 768px) {
+            .banner {
+                height: 300px;
+            }
+            
+            .banner-title {
+                font-size: 3rem;
+            }
+            
+            .banner-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .main-wrapper {
+                flex-direction: row;
+                min-height: calc(100vh - 300px);
+            }
+            
+            .sidebar {
+                width: var(--sidebar-width);
+                height: auto;
+                position: static;
+                border-right: 1px solid var(--light-gray);
+                border-bottom: none;
+                overflow-y: auto;
+            }
+            
+            .main-content {
+                flex: 1;
+                height: auto;
+                overflow-y: auto;
+            }
+            
+            .chapter-desc {
+                display: block;
+            }
+            
+            .content-container {
+                padding: 2rem;
+            }
+            
+            .content-title {
+                font-size: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: row;
+                gap: 1rem;
+            }
+            
+            .btn {
+                padding: 0.9rem 1.5rem;
+            }
+        }
+        
+        /* Desktop-only styles */
+        @media (min-width: 1025px) {
+            .banner {
+                height: 350px;
+            }
+            
+            .banner-title {
+                font-size: 3.5rem;
+            }
+            
+            .content-container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 3rem;
+            }
+            
+            .content-title {
+                font-size: 2.2rem;
+            }
+            
+            .chapter-item:hover {
+                transform: translateX(5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Banner with Background Image -->
+    <div class="banner">
+        <div class="banner-overlay"></div>
+        
+        <!-- Floating music notes -->
+        <i class="fas fa-music music-notes"></i>
+        <i class="fas fa-music music-notes"></i>
+        <i class="fas fa-music music-notes"></i>
+        
+        <div class="banner-content">
+            <h1 class="banner-title">Master Music Theory</h1>
+            <p class="banner-subtitle">Interactive lessons for all skill levels</p>
+            <button class="banner-btn">Start Learning</button>
+        </div>
+    </div>
+    
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+        <div class="sidebar" id="sidebar">
+            <div class="logo">Harmony</div>
+            
+            <div class="chapter-list" id="chapterList">
+                <!-- Chapters will be inserted here -->
+            </div>
+        </div>
+        
+        <div class="main-content" id="mainContent">
+            <div class="content-container" id="contentContainer">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+<script>
+    // Sample chapter data with dummy URLs
+    const chapters = [
+        { 
+            id: 1,
+            number: "01",
+            title: "Music Fundamentals", 
+            description: "Introduction to core concepts",
+            content: {
+                title: "Music Fundamentals",
+                subtitle: "Building blocks of music theory",
+                text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
+            }
+        },
+        { 
+            id: 2,
+            number: "02",
+            title: "Rhythm Mastery", 
+            description: "Understanding time and patterns",
+            content: {
+                title: "Rhythm Mastery",
+                subtitle: "The heartbeat of music",
+                text: "Rhythm is what makes music move and flow. This chapter will teach you how to recognize, read, and create various rhythmic patterns. We'll cover time signatures, note durations, syncopation, and polyrhythms to develop your timing and groove.",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Rhythm_notation.svg/1200px-Rhythm_notation.svg.png"
+            }
+        },
+        { 
+            id: 3,
+            number: "03",
+            title: "Melodic Structures", 
+            description: "Creating memorable melodies",
+            content: {
+                title: "Melodic Structures",
+                subtitle: "The art of musical lines",
+                text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
+            }
+        },
+        { 
+            id: 4,
+            number: "04",
+            title: "Harmonic Theory", 
+            description: "Chords and progressions",
+            content: {
+                title: "Harmonic Theory",
+                subtitle: "The science of chords",
+                text: "Harmony adds depth and emotion to music. This chapter explores chord construction, harmonic function, and progression patterns. You'll understand how chords work together to create tension and resolution in musical compositions.",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Chord_notation.svg/1200px-Chord_notation.svg.png"
+            }
+        },
+        { 
+            id: 5,
+            number: "05",
+            title: "Composition Techniques", 
+            description: "From idea to full piece",
+            content: {
+                title: "Composition Techniques",
+                subtitle: "Crafting complete musical works",
+                text: "Now we'll put everything together. Learn professional techniques for developing musical ideas into complete compositions. We'll cover song structure, instrumentation, arrangement, and the creative process used by master composers.",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
+            }
+        },
+        { 
+            id: 6,
+            number: "06",
+            title: "Music History", 
+            description: "Evolution through the ages",
+            content: {
+                title: "Music History",
+                subtitle: "A journey through musical eras",
+                text: "Understanding music's evolution helps contextualize modern practices. This chapter traces Western music from ancient times through contemporary genres, highlighting key developments, composers, and cultural influences that shaped music today.",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
+            }
+        }
+    ];
+    
+    // DOM elements
+    const chapterList = document.getElementById('chapterList');
+    const contentContainer = document.getElementById('contentContainer');
+    const bannerBtn = document.querySelector('.banner-btn');
+    
+    // Generate chapter list
+    chapters.forEach(chapter => {
+        const chapterItem = document.createElement('div');
+        chapterItem.className = 'chapter-item';
+        chapterItem.dataset.id = chapter.id;
+        
+        chapterItem.innerHTML = `
+            <div class="chapter-number">Chapter ${chapter.number}</div>
+            <div class="chapter-title">${chapter.title}</div>
+            <div class="chapter-desc">${chapter.description}</div>
+        `;
+        
+        chapterList.appendChild(chapterItem);
+    });
+    
+    // Set first chapter as active by default
+    setActiveChapter(chapters[0]);
+    document.querySelector('.chapter-item').classList.add('active');
+    
+    // Banner button click - scroll to content
+    bannerBtn.addEventListener('click', () => {
+        document.querySelector('.main-wrapper').scrollIntoView({ 
+            behavior: 'smooth' 
+        });
+    });
+    
+    // Chapter click event
+    chapterList.addEventListener('click', (e) => {
+        const chapterItem = e.target.closest('.chapter-item');
+        if (!chapterItem) return;
+        
+        // Remove active class from all items
+        document.querySelectorAll('.chapter-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Add active class to clicked item
+        chapterItem.classList.add('active');
+        
+        // Find the chapter data
+        const chapterId = parseInt(chapterItem.dataset.id);
+        const chapter = chapters.find(c => c.id === chapterId);
+        
+        // Update content
+        setActiveChapter(chapter);
+        
+        // On mobile, scroll to content after clicking a chapter
+        if (window.innerWidth < 768) {
+            setTimeout(() => {
+                contentContainer.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 350);
+        }
+    });
+    
+    // Set active chapter content
+    function setActiveChapter(chapter) {
+        contentContainer.classList.remove('active');
+        
+        setTimeout(() => {
+            contentContainer.innerHTML = `
+                <div class="content-header">
+                    <h1 class="content-title">${chapter.content.title}</h1>
+                    <p class="content-subtitle">${chapter.content.subtitle}</p>
+                </div>
+                
+                <div class="content-body">
+                    <p class="content-text">${chapter.content.text}</p>
+                    
+                    <div class="media-container">
+                        <h3 style="margin-bottom: 0.75rem; font-weight: 500; color: var(--dark);">
+                            <i class="fas fa-headphones" style="margin-right: 0.5rem; color: var(--primary);"></i>
+                            Audio Lesson
+                        </h3>
+                        <audio controls class="audio-player">
+                            <source src="${chapter.content.audio}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    
+                    <div class="media-container">
+                        <h3 style="margin-bottom: 0.75rem; font-weight: 500; color: var(--dark);">
+                            <i class="fas fa-music" style="margin-right: 0.5rem; color: var(--primary);"></i>
+                            Musical Notation
+                        </h3>
+                        <img src="${chapter.content.notation}" alt="Musical notation" class="notation-image">
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="${chapter.content.pdf}" class="btn btn-primary" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        View PDF
+                    </a>
+                </div>
+            `;
+            
+            contentContainer.classList.add('active');
+        }, 300);
+    }
+</script>
+</body>
+</html>
