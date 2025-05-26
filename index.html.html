@@ -44,7 +44,7 @@
             overflow: hidden;
             padding: 0 2rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a5d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Ffree-photos%2Fbeautiful-nature&psig=AOvVaw1Jdb2TL3uH7X9aR4CP_c-d&ust=1748324635138000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCIjOg_m2wI0DFQAAAAAdAAAAABAK');
             background-size: cover;
             background-position: center;
         }
@@ -220,6 +220,8 @@
         /* Main content area */
         .main-content {
             background: var(--light);
+            overflow-y: auto;
+            height: calc(100vh - 200px); /* Adjust based on your banner height */
         }
         
         .content-container {
@@ -356,8 +358,9 @@
             
             .sidebar {
                 width: var(--sidebar-width);
-                height: auto;
-                position: static;
+                height: calc(100vh - 200px);
+                position: sticky;
+                top: 0;
                 border-right: 1px solid var(--light-gray);
                 border-bottom: none;
                 overflow-y: auto;
@@ -365,7 +368,7 @@
             
             .main-content {
                 flex: 1;
-                height: auto;
+                height: calc(100vh - 200px);
                 overflow-y: auto;
             }
             
@@ -572,7 +575,7 @@
                 notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
             }
         },
-      { 
+              { 
                 
             id: 5,
             number: "05",
@@ -923,24 +926,22 @@
         // Update content
         setActiveChapter(chapter);
         
-        // Scroll behavior based on screen size
-        if (window.innerWidth < 768) {
-            // Mobile behavior - scroll to content
-            setTimeout(() => {
+        // Scroll behavior
+        setTimeout(() => {
+            if (window.innerWidth < 768) {
+                // Mobile behavior - scroll to content container
                 contentContainer.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
-            }, 350);
-        } else {
-            // Desktop behavior - scroll to top of content
-            setTimeout(() => {
+            } else {
+                // Desktop behavior - scroll to top of main content
                 mainContent.scrollTo({
                     top: 0,
                     behavior: 'smooth'
                 });
-            }, 350);
-        }
+            }
+        }, 350); // Matches the content transition time
     });
     
     // Set active chapter content
