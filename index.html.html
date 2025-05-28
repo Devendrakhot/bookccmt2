@@ -31,6 +31,7 @@
             background-color: var(--light);
             color: var(--dark);
             min-height: 100vh;
+            overflow-x: hidden;
         }
         
         /* Simplified Banner */
@@ -44,7 +45,7 @@
             overflow: hidden;
             padding: 0 2rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Ffree-photos%2Fbeautiful-nature&psig=AOvVaw1Jdb2TL3uH7X9aR4CP_c-d&ust=1748324635138000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCIjOg_m2wI0DFQAAAAAdAAAAABAK');
+            /* background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'); */
             background-size: cover;
             background-position: center;
         }
@@ -221,7 +222,7 @@
         .main-content {
             background: var(--light);
             overflow-y: auto;
-            height: calc(100vh - 200px); /* Adjust based on your banner height */
+            height: calc(100vh - 200px);
         }
         
         .content-container {
@@ -283,6 +284,8 @@
             transition: all 0.3s;
             border: none;
             font-size: 0.9rem;
+            width: 100%;
+            text-align: center;
         }
         
         .btn i {
@@ -291,6 +294,17 @@
         
         .btn-primary {
             background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark);
+            border: 1px solid var(--light-gray);
+        }
+        
+        .btn-accent {
+            background: linear-gradient(45deg, var(--accent), #f472b6);
             color: white;
         }
         
@@ -341,6 +355,81 @@
             margin-bottom: 0.75rem;
         }
         
+        /* Mobile Popup Styles */
+        @media (max-width: 767px) {
+            .main-content {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: var(--light);
+                z-index: 100;
+                transform: translateY(100%);
+                transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+                overflow-y: auto;
+                padding-bottom: 2rem;
+                box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+                border-radius: 20px 20px 0 0;
+                display: none;
+            }
+            
+            .main-content.active {
+                transform: translateY(0);
+                display: block;
+            }
+            
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 99;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+            }
+            
+            .overlay.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            
+            .close-btn {
+                position: fixed;
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: var(--light-gray);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 101;
+                border: none;
+                color: var(--dark);
+                font-size: 1.2rem;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+            }
+            
+            .close-btn:active {
+                transform: scale(0.9);
+            }
+            
+            .content-container {
+                padding-top: 3rem;
+            }
+            
+            .action-buttons {
+                gap: 1rem;
+            }
+        }
+        
         /* Tablet and Desktop Enhancements */
         @media (min-width: 768px) {
             .banner {
@@ -370,6 +459,19 @@
                 flex: 1;
                 height: calc(100vh - 200px);
                 overflow-y: auto;
+                position: static;
+                transform: none;
+                box-shadow: none;
+                border-radius: 0;
+                display: block !important;
+            }
+            
+            .overlay {
+                display: none !important;
+            }
+            
+            .close-btn {
+                display: none;
             }
             
             .chapter-desc {
@@ -386,10 +488,12 @@
             
             .action-buttons {
                 flex-direction: row;
+                flex-wrap: wrap;
                 gap: 1rem;
             }
             
             .btn {
+                width: auto;
                 padding: 0.9rem 1.5rem;
             }
         }
@@ -435,6 +539,9 @@
         </div>
     </div>
     
+    <!-- Overlay for mobile -->
+    <div class="overlay" id="overlay"></div>
+    
     <!-- Main Content Wrapper -->
     <div class="main-wrapper">
         <div class="sidebar" id="sidebar">
@@ -453,429 +560,543 @@
     </div>
 
 <script>
-    // Sample chapter data with multiple audio sections
+    // Sample chapter data with multiple audio sections and different notation images
     const chapters = [
         { 
             id: 1,
             number: "01",
-            title: "Music Fundamentals", 
-            description: "Introduction to core concepts",
+            title: "Need title", 
+            description: "Need Subtitle",
             content: {
-                title: "Music Fundamentals",
-                subtitle: "Building blocks of music theory",
+                title: "Need title",
+                subtitle: "Need Subtitle",
                 text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
                 audioSections: [
                     {
-                        title: "Introduction to Pitch",
+                        title: "Audio - Ram Ko Jisane",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
                     },
                     {
-                        title: "Rhythm Basics",
+                        title: "Karoke - Ram Ko Jisane",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
-                    },
-                    {
-                        title: "Scales and Intervals",
-                        description: "How notes relate to each other",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
-            }
+                buttons: [
+                   
+                    {
+                        text: "Musical Activity-5",
+                        icon: "video",
+                        url: "https://www.youtube.com",
+                        type: "accent"
+                    },
+                     {
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
+                    }
+                ],
+                     }
         },
         { 
             id: 2,
             number: "02",
-            title: "Rhythm Mastery", 
-            description: "Understanding time and patterns",
+            title: "Need title", 
+            description: "Need Subtitle",
             content: {
-                title: "Rhythm Mastery",
-                subtitle: "The heartbeat of music",
+                title: "Need title",
+                subtitle: "Need Subtitle",
                 text: "Rhythm is what makes music move and flow. This chapter will teach you how to recognize, read, and create various rhythmic patterns. We'll cover time signatures, note durations, syncopation, and polyrhythms to develop your timing and groove.",
                 audioSections: [
                     {
-                        title: "Time Signatures Explained",
+                        title: "Audio - Ojasvi Tejasvi",
                         description: "Understanding 4/4, 3/4 and other time signatures",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
                     },
                     {
-                        title: "Syncopation Techniques",
+                        title: "Karaoke - Ojasvi Tejasvi",
                         description: "Creating off-beat rhythms",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
-                    },
+                    }
+                   
+                ],
+                buttons: [
                     {
-                        title: "Polyrhythms",
-                        description: "Playing multiple rhythms simultaneously",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Rhythm_notation.svg/1200px-Rhythm_notation.svg.png"
-            }
+                  }
         },
         { 
             id: 3,
             number: "03",
-            title: "Melodic Structures", 
-            description: "Creating memorable melodies",
+            title: "Need title", 
+            description: "Need Subtitle",
             content: {
-                title: "Melodic Structures",
-                subtitle: "The art of musical lines",
+                title: "Need title",
+                subtitle: "Need Subtitle",
                 text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
                 audioSections: [
                     {
-                        title: "Major vs Minor Melodies",
+                        title: "Audio - Jaha Jaha Ragunatha",
                         description: "The emotional impact of scales",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
                     },
                     {
-                        title: "Phrasing Techniques",
+                        title: "Karaoke - Jaha Jaha Ragunatha",
                         description: "Creating musical sentences",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
-                    },
-                    {
-                        title: "Motif Development",
-                        description: "Expanding musical ideas",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
-            }
+                buttons: [
+                    {
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
+                    }
+                ],
+                  }
         },
         { 
             id: 4,
             number: "04",
-            title: "Harmony Basics", 
-            description: "Understanding chords and progressions",
+            title: "Need Title", 
+            description: "Need SubTitle",
             content: {
-                title: "Harmony Basics",
-                subtitle: "The science of chords",
-                text: "Harmony adds depth and emotion to music. In this chapter, you'll learn how chords are built, how they relate to each other, and how to create compelling chord progressions that support your melodies.",
+                title: "Need Title",
+                subtitle: "Need SubTitle",
+                text: "Harmony adds depth and emotion to music. In this chapter, you'll learn about chords, chord progressions, and how they support melodies. We'll cover triads, seventh chords, and basic harmonic functions.",
                 audioSections: [
                     {
-                        title: "Triads and Seventh Chords",
-                        description: "Building blocks of harmony",
+                        title: "Audio - Adi Deva Mahadeva",
+                        description: "Major, minor, diminished and augmented",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"
                     },
                     {
-                        title: "Chord Progressions",
-                        description: "Creating movement in music",
+                        title: "Karaoke - Adi Deva Mahadeva",
+                        description: "Common patterns in Western music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3"
                     },
+                    
+                ],
+                buttons: [
+                    
                     {
-                        title: "Voice Leading",
-                        description: "Smooth transitions between chords",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3"
+                        text: "Musical Activity-1",
+                        icon: "music",
+                        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
+                        type: "accent"
+                    },
+                    {
+                        text: "Musical Activity-3",
+                        icon: "video",
+                        url: "#ear-training",
+                        type: "accent"
+                    },
+                    {
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
-            }
+                   }
         },
-              { 
-                
+            { 
             id: 5,
             number: "05",
-            title: "Melodic Structures", 
-            description: "Creating memorable melodies",
+            title: "Need Title", 
+            description: "Need SubTitle",
             content: {
-                title: "Melodic Structures",
-                subtitle: "The art of musical lines",
-                text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
+                title: "Need Title",
+                subtitle: "Need SubTitle",
+                text: "Harmony adds depth and emotion to music. In this chapter, you'll learn about chords, chord progressions, and how they support melodies. We'll cover triads, seventh chords, and basic harmonic functions.",
                 audioSections: [
                     {
-                        title: "Major vs Minor Melodies",
-                        description: "The emotional impact of scales",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                        title: "Audio - Nanda Nandana",
+                        description: "Major, minor, diminished and augmented",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"
                     },
                     {
-                        title: "Phrasing Techniques",
-                        description: "Creating musical sentences",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
+                        title: "Karaoke - Nanda Nandana",
+                        description: "Common patterns in Western music",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3"
                     },
+                    
+                ],
+                buttons: [
+                    
+                
                     {
-                        title: "Motif Development",
-                        description: "Expanding musical ideas",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
-            }
+                  }
         },
-        { 
+         { 
             id: 6,
             number: "06",
-            title: "Melodic Structures", 
-            description: "Creating memorable melodies",
+            title: "Need Title", 
+            description: "Need SubTitle",
             content: {
-                title: "Melodic Structures",
-                subtitle: "The art of musical lines",
-                text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
+                title: "Need Title",
+                subtitle: "Need SubTitle",
+                text: "Harmony adds depth and emotion to music. In this chapter, you'll learn about chords, chord progressions, and how they support melodies. We'll cover triads, seventh chords, and basic harmonic functions.",
                 audioSections: [
                     {
-                        title: "Major vs Minor Melodies",
-                        description: "The emotional impact of scales",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                        title: "Audio - Jagata Janani",
+                        description: "Major, minor, diminished and augmented",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"
                     },
                     {
-                        title: "Phrasing Techniques",
-                        description: "Creating musical sentences",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
+                        title: "Karaoke - Jagata Janani",
+                        description: "Common patterns in Western music",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3"
                     },
+                    
+                ],
+                buttons: [
+                    
+                
                     {
-                        title: "Motif Development",
-                        description: "Expanding musical ideas",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
-            }
+                  }
         },
-        { 
+           { 
             id: 7,
             number: "07",
-            title: "Melodic Structures", 
-            description: "Creating memorable melodies",
+            title: "Need title", 
+            description: "Need Subtitle",
             content: {
-                title: "Melodic Structures",
-                subtitle: "The art of musical lines",
-                text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
+                title: "Need title",
+                subtitle: "Need Subtitle",
+                text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
                 audioSections: [
                     {
-                        title: "Major vs Minor Melodies",
-                        description: "The emotional impact of scales",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                        title: "Audio - Gate Raho",
+                        description: "Understanding high and low sounds in music",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
                     },
                     {
-                        title: "Phrasing Techniques",
-                        description: "Creating musical sentences",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
-                    },
-                    {
-                        title: "Motif Development",
-                        description: "Expanding musical ideas",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                        title: "Karaoke - Gate Raho",
+                        description: "Introduction to beat and tempo",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
-            }
+                buttons: [
+                   
+                    {
+                        text: "Musical Activity-1",
+                        icon: "page",
+                        url: "https://www.youtube.com",
+                        type: "accent"
+                    },
+                     {
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
+                    }
+                ],
+                     }
         },
-      { 
+        { 
             id: 8,
             number: "08",
-            title: "Melodic Structures", 
-            description: "Creating memorable melodies",
+            title: "Need title", 
+            description: "Need Subtitle",
             content: {
-                title: "Melodic Structures",
-                subtitle: "The art of musical lines",
-                text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
+                title: "Need title",
+                subtitle: "Need Subtitle",
+                text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
                 audioSections: [
                     {
-                        title: "Major vs Minor Melodies",
-                        description: "The emotional impact of scales",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                        title: "Audio - Gurudeva Tava",
+                        description: "Understanding high and low sounds in music",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
                     },
                     {
-                        title: "Phrasing Techniques",
-                        description: "Creating musical sentences",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
-                    },
-                    {
-                        title: "Motif Development",
-                        description: "Expanding musical ideas",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                        title: "Karaoke - Gurudeva Tava",
+                        description: "Introduction to beat and tempo",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
-            }
+                buttons: [
+                   
+                    {
+                        text: "Musical Activity-1",
+                        icon: "music",
+                        url: "https://www.youtube.com",
+                        type: "accent"
+                    },
+                     {
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
+                    }
+                ],
+                     }
         },
-
-  { 
+         { 
             id: 9,
             number: "09",
-            title: "Melodic Structures", 
-            description: "Creating memorable melodies",
+            title: "Need title", 
+            description: "Need Subtitle",
             content: {
-                title: "Melodic Structures",
-                subtitle: "The art of musical lines",
-                text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
+                title: "Need title",
+                subtitle: "Need Subtitle",
+                text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
                 audioSections: [
                     {
-                        title: "Major vs Minor Melodies",
-                        description: "The emotional impact of scales",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                        title: "Audio - Jaya Jaya Guna Sagara",
+                        description: "Understanding high and low sounds in music",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
                     },
                     {
-                        title: "Phrasing Techniques",
-                        description: "Creating musical sentences",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
-                    },
-                    {
-                        title: "Motif Development",
-                        description: "Expanding musical ideas",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                        title: "Karaoke - Jaya Jaya Guna Sagara",
+                        description: "Introduction to beat and tempo",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
-            }
+                buttons: [
+                   
+                    {
+                        text: "Musical Activity-1",
+                        icon: "video",
+                        url: "https://www.youtube.com",
+                        type: "accent"
+                    },
+                     {
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
+                    }
+                ],
+                     }
         },
-  { 
+            { 
             id: 10,
             number: "10",
-            title: "Melodic Structures", 
-            description: "Creating memorable melodies",
+            title: "Need title", 
+            description: "Need Subtitle",
             content: {
-                title: "Melodic Structures",
-                subtitle: "The art of musical lines",
-                text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
+                title: "Need title",
+                subtitle: "Need Subtitle",
+                text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
                 audioSections: [
                     {
-                        title: "Major vs Minor Melodies",
-                        description: "The emotional impact of scales",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                        title: "Audio - Jaya Jaya Vittala",
+                        description: "Understanding high and low sounds in music",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
                     },
                     {
-                        title: "Phrasing Techniques",
-                        description: "Creating musical sentences",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
-                    },
-                    {
-                        title: "Motif Development",
-                        description: "Expanding musical ideas",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                        title: "Karaoke - Jaya Jaya Vittala",
+                        description: "Introduction to beat and tempo",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
-            }
+                buttons: [
+                   
+                    {
+                        text: "Musical Activity-1",
+                        icon: "video",
+                        url: "https://www.youtube.com",
+                        type: "accent"
+                    },
+                     {
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
+                    }
+                ],
+                     }
         },
-          { 
+       { 
             id: 11,
             number: "11",
-            title: "Melodic Structures", 
-            description: "Creating memorable melodies",
+            title: "Need title", 
+            description: "Need Subtitle",
             content: {
-                title: "Melodic Structures",
-                subtitle: "The art of musical lines",
-                text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
+                title: "Need title",
+                subtitle: "Need Subtitle",
+                text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
                 audioSections: [
                     {
-                        title: "Major vs Minor Melodies",
-                        description: "The emotional impact of scales",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                        title: "Audio - Dhanya Dhanya",
+                        description: "Understanding high and low sounds in music",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
                     },
                     {
-                        title: "Phrasing Techniques",
-                        description: "Creating musical sentences",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
-                    },
-                    {
-                        title: "Motif Development",
-                        description: "Expanding musical ideas",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                        title: "Karaoke - Dhanya Dhanya",
+                        description: "Introduction to beat and tempo",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
-            }
+                buttons: [
+                   
+                    
+                     {
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
+                    }
+                ],
+                     }
         },
-          { 
+     { 
             id: 12,
             number: "12",
-            title: "Melodic Structures", 
-            description: "Creating memorable melodies",
+            title: "Need title", 
+            description: "Need Subtitle",
             content: {
-                title: "Melodic Structures",
-                subtitle: "The art of musical lines",
-                text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
+                title: "Need title",
+                subtitle: "Need Subtitle",
+                text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
                 audioSections: [
                     {
-                        title: "Major vs Minor Melodies",
-                        description: "The emotional impact of scales",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                        title: "Audio - Prano Se Pyare",
+                        description: "Understanding high and low sounds in music",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
                     },
                     {
-                        title: "Phrasing Techniques",
-                        description: "Creating musical sentences",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
-                    },
-                    {
-                        title: "Motif Development",
-                        description: "Expanding musical ideas",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                        title: "Karaoke -  Prano Se Pyare",
+                        description: "Introduction to beat and tempo",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
-            }
+                buttons: [
+                   
+                     {
+                        text: "Nama Ramayan",
+                        icon: "music",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
+                    },
+                     {
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
+                    }
+                ],
+                     }
         },
-          { 
+     { 
             id: 13,
             number: "13",
-            title: "Melodic Structures", 
-            description: "Creating memorable melodies",
+            title: "Need title", 
+            description: "Need Subtitle",
             content: {
-                title: "Melodic Structures",
-                subtitle: "The art of musical lines",
-                text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
+                title: "Need title",
+                subtitle: "Need Subtitle",
+                text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
                 audioSections: [
                     {
-                        title: "Major vs Minor Melodies",
-                        description: "The emotional impact of scales",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                        title: "Audio - Tvam Hi No Neta",
+                        description: "Understanding high and low sounds in music",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
                     },
                     {
-                        title: "Phrasing Techniques",
-                        description: "Creating musical sentences",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
-                    },
-                    {
-                        title: "Motif Development",
-                        description: "Expanding musical ideas",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                        title: "Karaoke - Tvam Hi No Neta",
+                        description: "Introduction to beat and tempo",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
-            }
+                buttons: [
+                   
+                    
+                     {
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
+                    }
+                ],
+                     }
         },
           { 
             id: 14,
-            number: "14",
-            title: "Melodic Structures", 
-            description: "Creating memorable melodies",
+            number: "13",
+            title: "Need title", 
+            description: "Need Subtitle",
             content: {
-                title: "Melodic Structures",
-                subtitle: "The art of musical lines",
-                text: "Melodies are the most recognizable parts of music. In this section, we'll analyze how great melodies are constructed and teach you techniques to create your own. You'll learn about scales, modes, phrasing, and melodic development.",
+                title: "Need title",
+                subtitle: "Need Subtitle",
+                text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
                 audioSections: [
                     {
-                        title: "Major vs Minor Melodies",
-                        description: "The emotional impact of scales",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                        title: "Audio - Apa Ki Mana",
+                        description: "Understanding high and low sounds in music",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
                     },
                     {
-                        title: "Phrasing Techniques",
-                        description: "Creating musical sentences",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
-                    },
-                    {
-                        title: "Motif Development",
-                        description: "Expanding musical ideas",
-                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                        title: "Karaoke - Apa Ki Mana",
+                        description: "Introduction to beat and tempo",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
                     }
                 ],
-                pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                notation: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Music_notation.svg/1200px-Music_notation.svg.png"
-            }
+                buttons: [
+                   
+                    
+                     {
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
+                    }
+                ],
+                     }
+        },
+           { 
+            id: 14,
+            number: "13",
+            title: "Need title", 
+            description: "Need Subtitle",
+            content: {
+                title: "Need title",
+                subtitle: "Need Subtitle",
+                text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
+                audioSections: [
+                    {
+                        title: "Audio - Shyam Sundar",
+                        description: "Understanding high and low sounds in music",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                    },
+                    {
+                        title: "Karaoke - Shyam Sundar",
+                        description: "Introduction to beat and tempo",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+                    }
+                ],
+                buttons: [
+                   
+                    
+                     {
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        type: "primary"
+                    }
+                ],
+                     }
         },
     ];
     
@@ -883,6 +1104,7 @@
     const chapterList = document.getElementById('chapterList');
     const contentContainer = document.getElementById('contentContainer');
     const mainContent = document.getElementById('mainContent');
+    const overlay = document.getElementById('overlay');
     
     // Generate chapter list
     chapters.forEach(chapter => {
@@ -899,17 +1121,19 @@
         chapterList.appendChild(chapterItem);
     });
     
-    // Set first chapter as active by default
-    setActiveChapter(chapters[0]);
-    document.querySelector('.chapter-item').classList.add('active');
+    // Set first chapter as active by default (only for desktop)
+    if (window.innerWidth >= 768) {
+        setActiveChapter(chapters[0]);
+        document.querySelector('.chapter-item').classList.add('active');
+    }
     
     // Chapter click event
     chapterList.addEventListener('click', (e) => {
         const chapterItem = e.target.closest('.chapter-item');
         if (!chapterItem) return;
         
-        // Prevent unnecessary updates if same chapter is clicked
-        if (chapterItem.classList.contains('active')) return;
+        // Prevent unnecessary updates if same chapter is clicked (desktop only)
+        if (window.innerWidth >= 768 && chapterItem.classList.contains('active')) return;
         
         // Remove active class from all items
         document.querySelectorAll('.chapter-item').forEach(item => {
@@ -926,23 +1150,29 @@
         // Update content
         setActiveChapter(chapter);
         
-        // Scroll behavior
-        setTimeout(() => {
-            if (window.innerWidth < 768) {
-                // Mobile behavior - scroll to content container
-                contentContainer.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            } else {
-                // Desktop behavior - scroll to top of main content
+        // Mobile behavior - show overlay and popup
+        if (window.innerWidth < 768) {
+            overlay.classList.add('active');
+            mainContent.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        // Desktop behavior - scroll to top
+        else {
+            setTimeout(() => {
                 mainContent.scrollTo({
                     top: 0,
                     behavior: 'smooth'
                 });
-            }
-        }, 350); // Matches the content transition time
+            }, 350);
+        }
     });
+    
+    // Close button and overlay click handler
+    function closeContent() {
+        mainContent.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
     
     // Set active chapter content
     function setActiveChapter(chapter) {
@@ -964,7 +1194,18 @@
                 </div>
             `).join('');
             
+            // Generate HTML for all buttons
+            const buttonsHTML = chapter.content.buttons.map(button => `
+                <a href="${button.url}" class="btn btn-${button.type}">
+                    <i class="fas fa-${button.icon}"></i>
+                    ${button.text}
+                </a>
+            `).join('');
+            
             contentContainer.innerHTML = `
+                <button class="close-btn" id="closeContent">
+                    <i class="fas fa-times"></i>
+                </button>
                 <div class="content-header">
                     <h1 class="content-title">${chapter.content.title}</h1>
                     ${chapter.content.subtitle ? `<p class="content-subtitle">${chapter.content.subtitle}</p>` : ''}
@@ -974,17 +1215,23 @@
                     <p class="content-text">${chapter.content.text}</p>
                     
                     ${audioSectionsHTML}
+            
                 </div>
                 
                 <div class="action-buttons">
-                    <a href="${chapter.content.pdf}" class="btn btn-primary" target="_blank">
-                        <i class="fas fa-file-pdf"></i>
-                        Notation
-                    </a>
+                    ${buttonsHTML}
                 </div>
             `;
             
             contentContainer.classList.add('active');
+            
+            // Add event listeners for close button and overlay
+            const closeBtn = document.getElementById('closeContent');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeContent);
+            }
+            
+            overlay.addEventListener('click', closeContent);
         }, 300);
     }
 </script>
