@@ -7,118 +7,28 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4f46e5',
+                        'primary-light': '#6366f1',
+                        secondary: '#7c3aed',
+                        accent: '#ec4899',
+                        light: '#ffffff',
+                        dark: '#111827',
+                        gray: '#6b7280',
+                        'light-gray': '#f3f4f6',
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-light: #6366f1;
-            --secondary: #7c3aed;
-            --accent: #ec4899;
-            --light: #ffffff;
-            --dark: #111827;
-            --gray: #6b7280;
-            --light-gray: #f3f4f6;
-            --sidebar-width: 350px;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--light);
-            color: var(--dark);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        
-        /* Simplified Banner */
-        .banner {
-            width: 100%;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding: 0 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            /* background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'); */
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .banner-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.85) 0%, rgba(124, 58, 237, 0.85) 100%);
-            z-index: 2;
-        }
-        
-        .banner-content {
-            position: relative;
-            z-index: 3;
-            text-align: center;
-            max-width: 800px;
-            color: white;
-            padding: 2rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-        
-        .banner-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0;
-            line-height: 1.2;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .banner-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--light);
-            border-radius: 2px;
-        }
-        
-        .music-notes {
-            position: absolute;
-            z-index: 2;
-            opacity: 0.3;
-            animation: float 5s infinite ease-in-out;
-        }
-        
-        .music-notes:nth-child(1) {
-            top: 20%;
-            left: 10%;
-            font-size: 1.5rem;
-            animation-delay: 0s;
-        }
-        
-        .music-notes:nth-child(2) {
-            top: 30%;
-            right: 15%;
-            font-size: 1.2rem;
-            animation-delay: 1s;
-        }
-        
-        .music-notes:nth-child(3) {
-            bottom: 20%;
-            left: 15%;
-            font-size: 1.8rem;
-            animation-delay: 2s;
-        }
-        
         @keyframes float {
             0%, 100% {
                 transform: translateY(0);
@@ -128,432 +38,116 @@
             }
         }
         
-        /* Main Layout */
-        .main-wrapper {
-            display: flex;
-            flex-direction: column;
+        .music-notes {
+            animation: float 5s infinite ease-in-out;
         }
         
-        /* Sidebar with chapters */
-        .sidebar {
-            background: var(--light);
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--light-gray);
-            z-index: 10;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-        }
-        
-        .chapter-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .chapter-item {
-            padding: 1rem 1.25rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            background: var(--light);
-            border: 1px solid var(--light-gray);
-            font-size: 0.95rem;
-        }
-        
-        .chapter-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--primary), var(--accent));
-            transform: translateX(-10px);
-            opacity: 0;
-            transition: all 0.3s;
-        }
-        
-        .chapter-item:hover {
-            background: var(--light-gray);
-        }
-        
-        .chapter-item.active {
-            background: var(--light-gray);
-            border-color: rgba(79, 70, 229, 0.3);
-        }
-        
-        .chapter-item.active::before {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        
-        .chapter-number {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 0.25rem;
-        }
-        
-        .chapter-title {
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--dark);
-        }
-        
-        .chapter-desc {
-            font-size: 0.85rem;
-            color: var(--gray);
-            margin-top: 0.25rem;
-            line-height: 1.4;
-            display: none;
-        }
-        
-        /* Main content area */
-        .main-content {
-            background: var(--light);
-            overflow-y: auto;
-            height: calc(100vh - 200px);
-        }
-        
-        .content-container {
-            padding: 1.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .content-container.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .content-header {
-            margin-bottom: 1.5rem;
-        }
-        
-        .content-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
-        }
-        
-        .content-body {
-            margin-bottom: 2rem;
-        }
-        
-        .content-text {
-            line-height: 1.6;
-            color: var(--dark);
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-        
-        .action-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .btn {
-            padding: 0.8rem 1.25rem;
-            border-radius: 10px;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            transition: all 0.3s;
-            border: none;
-            font-size: 0.9rem;
-            width: 100%;
-            text-align: center;
-        }
-        
-        .btn i {
-            font-size: 1rem;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
-        }
-        
-        .btn-secondary {
-            background: var(--light-gray);
-            color: var(--dark);
-            border: 1px solid var(--light-gray);
-        }
-        
-        .btn-accent {
-            background: linear-gradient(45deg, var(--accent), #f472b6);
-            color: white;
-        }
-        
-        .media-container {
-            background: var(--light-gray);
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--light-gray);
-        }
-        
-        .audio-player {
-            width: 100%;
-            margin-top: 0.75rem;
-            border-radius: 8px;
-        }
-        
-        .notation-image {
-            width: 100%;
-            border-radius: 8px;
-            margin-top: 0.75rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--light-gray);
-        }
-        
-        /* Audio section styles */
-        .audio-section {
-            margin-bottom: 1.5rem;
-        }
-        
-        .audio-section-title {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .audio-section-title i {
-            margin-right: 0.5rem;
-            color: var(--primary);
-        }
-        
-        .audio-section-desc {
-            font-size: 0.85rem;
-            color: var(--gray);
-            margin-bottom: 0.75rem;
-        }
-        
-        /* Mobile Popup Styles */
-        @media (max-width: 767px) {
-            .main-content {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: var(--light);
-                z-index: 100;
-                transform: translateY(100%);
-                transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-                overflow-y: auto;
-                padding-bottom: 2rem;
-                box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
-                border-radius: 20px 20px 0 0;
-                display: none;
-            }
-            
-            .main-content.active {
-                transform: translateY(0);
-                display: block;
-            }
-            
-            .overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 99;
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.3s ease;
-            }
-            
-            .overlay.active {
-                opacity: 1;
-                pointer-events: auto;
-            }
-            
-            .close-btn {
-                position: fixed;
-                top: 1rem;
-                right: 1rem;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                background: var(--light-gray);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                z-index: 101;
-                border: none;
-                color: var(--dark);
-                font-size: 1.2rem;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s ease;
-            }
-            
-            .close-btn:active {
-                transform: scale(0.9);
-            }
-            
-            .content-container {
-                padding-top: 3rem;
-            }
-            
-            .action-buttons {
-                gap: 1rem;
-            }
-        }
-        
-        /* Tablet and Desktop Enhancements */
-        @media (min-width: 768px) {
-            .banner {
-                height: 200px;
-            }
-            
-            .banner-title {
-                font-size: 3rem;
-            }
-            
-            .main-wrapper {
-                flex-direction: row;
-                min-height: calc(100vh - 200px);
-            }
-            
-            .sidebar {
-                width: var(--sidebar-width);
-                height: calc(100vh - 200px);
-                position: sticky;
-                top: 0;
-                border-right: 1px solid var(--light-gray);
-                border-bottom: none;
-                overflow-y: auto;
-            }
-            
-            .main-content {
-                flex: 1;
-                height: calc(100vh - 200px);
-                overflow-y: auto;
-                position: static;
-                transform: none;
-                box-shadow: none;
-                border-radius: 0;
-                display: block !important;
-            }
-            
-            .overlay {
-                display: none !important;
-            }
-            
-            .close-btn {
-                display: none;
-            }
-            
-            .chapter-desc {
-                display: block;
-            }
-            
-            .content-container {
-                padding: 2rem;
-            }
-            
-            .content-title {
-                font-size: 2rem;
-            }
-            
-            .action-buttons {
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
-            
-            .btn {
-                width: auto;
-                padding: 0.9rem 1.5rem;
-            }
-        }
-        
-        /* Desktop-only styles */
-        @media (min-width: 1025px) {
-            .banner {
-                height: 200px;
-            }
-            
-            .banner-title {
-                font-size: 3.5rem;
-            }
-            
-            .content-container {
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 3rem;
-            }
-            
-            .content-title {
-                font-size: 2.2rem;
-            }
-            
-            .chapter-item:hover {
-                transform: translateX(5px);
-            }
-        }
+        /* Add this to the <style> section for popup animation */
+@keyframes popup-slide-in {
+  0% {
+    transform: translateY(100%);
+    opacity: 0.5;
+  }
+  80% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes popup-slide-out {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* Add popup-animate-in and popup-animate-out classes for JS toggling */
+.popup-animate-in {
+  animation: popup-slide-in 0.7s cubic-bezier(0.25,1,0.5,1) both;
+}
+.popup-animate-out {
+  animation: popup-slide-out 0.5s cubic-bezier(0.25,1,0.5,1) both;
+}
+
+/* Modern glassmorphism/gradient style for scroll-to-top button */
+#scrollToTopBtn {
+    background: linear-gradient(135deg, rgba(79,70,229,0.85) 0%, rgba(236,72,153,0.85) 100%);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    outline: none;
+    transition: opacity 0.3s, transform 0.2s, box-shadow 0.2s;
+    opacity: 0;
+    pointer-events: none;
+}
+#scrollToTopBtn.opacity-100 {
+    opacity: 1;
+    pointer-events: auto;
+}
+#scrollToTopBtn:hover, #scrollToTopBtn:focus {
+    transform: scale(1.08) translateY(-4px);
+    box-shadow: 0 12px 40px 0 rgba(79,70,229,0.25), 0 2px 8px 0 rgba(236,72,153,0.12);
+    border-color: rgba(236,72,153,0.35);
+}
+#scrollToTopBtn svg, #scrollToTopBtn i {
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.10));
+}
+@media (max-width: 768px) {
+    #scrollToTopBtn {
+        bottom: 4vw;
+        right: 4vw;
+        width: 3.2rem;
+        height: 3.2rem;
+    }
+}
     </style>
 </head>
-<body>
+<body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
     <!-- Simplified Banner with Background Image -->
-    <div class="banner">
-        <div class="banner-overlay"></div>
+    <div class="banner w-full h-[200px] flex items-center justify-center relative overflow-hidden px-8 shadow-[0_10px_30px_rgba(0,0,0,0.1)] bg-[url('./background2_resized_wide.jpeg')] bg-cover bg-center">
+        <div class="banner-overlay absolute top-0 left-0 w-full h-full z-10"></div>
         
         <!-- Floating music notes -->
-        <i class="fas fa-music music-notes"></i>
-        <i class="fas fa-music music-notes"></i>
-        <i class="fas fa-music music-notes"></i>
+        <i class="fas fa-music music-notes absolute z-20 opacity-30 text-xl top-1/5 left-1/10"></i>
+        <i class="fas fa-music music-notes absolute z-20 opacity-30 text-lg top-3/10 right-1/6"></i>
+        <i class="fas fa-music music-notes absolute z-20 opacity-30 text-xl bottom-1/5 left-1/6"></i>
         
-        <div class="banner-content">
-            <h1 class="banner-title">Let the heart sing</h1>
+        <div class="banner-content relative z-30 text-center max-w-2xl text-white p-8 [text-shadow:0_2px_4px_rgba(0,0,0,0.2)]">
+            <h1 class="banner-title text-4xl md:text-5xl lg:text-6xl font-bold mb-0 leading-tight relative inline-block">
+                Let the heart sing
+                <span class="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-20 h-1 bg-light rounded"></span>
+            </h1>
         </div>
     </div>
     
     <!-- Overlay for mobile -->
-    <div class="overlay" id="overlay"></div>
+    <div class="overlay fixed top-0 left-0 w-full h-full bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300" id="overlay"></div>
     
     <!-- Main Content Wrapper -->
-    <div class="main-wrapper">
-        <div class="sidebar" id="sidebar">
-            <div class="logo">Let the heart sing</div>
+    <div class="main-wrapper flex flex-col md:flex-row">
+        <!-- Sidebar with chapters -->
+        <div class="sidebar bg-light p-6 border-b border-light-gray md:w-[350px] md:h-[calc(100vh-200px)] md:sticky md:top-0 md:border-r md:border-b-0 md:overflow-y-auto z-30" id="sidebar">
+            <div class="logo text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6 inline-block">
+                Let the heart sing
+            </div>
             
-            <div class="chapter-list" id="chapterList">
+            <div class="chapter-list flex flex-col gap-2" id="chapterList">
                 <!-- Chapters will be inserted here -->
             </div>
         </div>
         
-        <div class="main-content" id="mainContent">
-            <div class="content-container" id="contentContainer">
+        <!-- Main content area -->
+        <div class="main-content bg-light overflow-y-auto h-[calc(100vh-200px)] fixed top-0 left-0 w-full h-full bg-light z-50 translate-y-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-y-auto pb-8 shadow-[0_-10px_30px_rgba(0,0,0,0.1)] rounded-t-2xl md:relative md:z-0 md:translate-y-0 md:shadow-none md:rounded-none md:h-[calc(100vh-200px)]" id="mainContent">
+            <div class="content-container p-6 opacity-0 translate-y-5 transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] md:pt-8 md:px-8 lg:max-w-4xl lg:mx-auto lg:py-12" id="contentContainer">
                 <!-- Content will be dynamically inserted here -->
             </div>
         </div>
@@ -1109,13 +703,13 @@
     // Generate chapter list
     chapters.forEach(chapter => {
         const chapterItem = document.createElement('div');
-        chapterItem.className = 'chapter-item';
+        chapterItem.className = 'chapter-item bg-light border border-light-gray p-4 rounded-lg cursor-pointer transition-all relative hover:bg-light-gray md:hover:translate-x-1';
         chapterItem.dataset.id = chapter.id;
         
         chapterItem.innerHTML = `
-            <div class="chapter-number">Chapter ${chapter.number}</div>
-            <div class="chapter-title">${chapter.title}</div>
-            <div class="chapter-desc">${chapter.description}</div>
+            <div class="chapter-number text-xs font-semibold text-primary mb-1">Chapter ${chapter.number}</div>
+            <div class="chapter-title text-base font-medium text-dark">${chapter.title}</div>
+            <div class="chapter-desc text-sm text-gray mt-1 hidden md:block">${chapter.description}</div>
         `;
         
         chapterList.appendChild(chapterItem);
@@ -1124,7 +718,7 @@
     // Set first chapter as active by default (only for desktop)
     if (window.innerWidth >= 768) {
         setActiveChapter(chapters[0]);
-        document.querySelector('.chapter-item').classList.add('active');
+        document.querySelector('.chapter-item').classList.add('active', 'bg-light-gray', 'border-primary/30');
     }
     
     // Chapter click event
@@ -1137,11 +731,11 @@
         
         // Remove active class from all items
         document.querySelectorAll('.chapter-item').forEach(item => {
-            item.classList.remove('active');
+            item.classList.remove('active', 'bg-light-gray', 'border-primary/30');
         });
         
         // Add active class to clicked item
-        chapterItem.classList.add('active');
+        chapterItem.classList.add('active', 'bg-light-gray', 'border-primary/30');
         
         // Find the chapter data
         const chapterId = parseInt(chapterItem.dataset.id);
@@ -1149,11 +743,12 @@
         
         // Update content
         setActiveChapter(chapter);
-        
         // Mobile behavior - show overlay and popup
         if (window.innerWidth < 768) {
-            overlay.classList.add('active');
-            mainContent.classList.add('active');
+            overlay.classList.add('active', 'opacity-100', 'pointer-events-auto');
+            mainContent.classList.add('active', 'popup-animate-in');
+            mainContent.classList.remove('popup-animate-out');
+            mainContent.classList.add('translate-y-0');
             document.body.style.overflow = 'hidden';
         }
         // Desktop behavior - scroll to top
@@ -1169,25 +764,29 @@
     
     // Close button and overlay click handler
     function closeContent() {
-        mainContent.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
+        mainContent.classList.remove('popup-animate-in');
+        mainContent.classList.add('popup-animate-out');
+        setTimeout(() => {
+            mainContent.classList.remove('active', 'translate-y-0', 'popup-animate-out');
+            overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
+            document.body.style.overflow = 'auto';
+        }, 500);
     }
     
     // Set active chapter content
     function setActiveChapter(chapter) {
-        contentContainer.classList.remove('active');
+        contentContainer.classList.remove('active', 'opacity-100', 'translate-y-0');
         
         setTimeout(() => {
             // Generate HTML for all audio sections
             const audioSectionsHTML = chapter.content.audioSections.map(section => `
-                <div class="media-container audio-section">
-                    <h3 class="audio-section-title">
-                        <i class="fas fa-headphones"></i>
+                <div class="media-container bg-light-gray p-5 rounded-xl mb-6 border border-light-gray">
+                    <h3 class="audio-section-title text-lg font-medium text-dark mb-2 flex items-center">
+                        <i class="fas fa-headphones mr-2 text-primary"></i>
                         ${section.title}
                     </h3>
-                    <p class="audio-section-desc">${section.description}</p>
-                    <audio controls class="audio-player">
+                    <p class="audio-section-desc text-sm text-gray mb-3">${section.description}</p>
+                    <audio controls class="audio-player w-full rounded-lg mt-3">
                         <source src="${section.audio}" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
@@ -1196,34 +795,39 @@
             
             // Generate HTML for all buttons
             const buttonsHTML = chapter.content.buttons.map(button => `
-                <a href="${button.url}" class="btn btn-${button.type}">
+                <a href="${button.url}" class="btn flex items-center justify-center gap-2 py-3 px-5 rounded-lg font-medium cursor-pointer transition-all text-center w-full md:w-auto ${button.type === 'primary' ? 'bg-gradient-to-r from-primary to-secondary text-white' : button.type === 'accent' ? 'bg-gradient-to-r from-accent to-[#f472b6] text-white' : 'bg-light-gray text-dark border border-light-gray'}">
                     <i class="fas fa-${button.icon}"></i>
                     ${button.text}
                 </a>
             `).join('');
             
-            contentContainer.innerHTML = `
-                <button class="close-btn" id="closeContent">
-                    <i class="fas fa-times"></i>
-                </button>
-                <div class="content-header">
-                    <h1 class="content-title">${chapter.content.title}</h1>
-                    ${chapter.content.subtitle ? `<p class="content-subtitle">${chapter.content.subtitle}</p>` : ''}
-                </div>
-                
-                <div class="content-body">
-                    <p class="content-text">${chapter.content.text}</p>
-                    
-                    ${audioSectionsHTML}
+        contentContainer.innerHTML = `
+    <div class="relative"> <!-- Container for positioning -->
+        <!-- Content wrapper with higher z-index -->
+        <div class="relative z-10">
+            <img src="logo.png" alt="Logo" class="absolute top-2 right-8 max-h-24 w-auto object-contain pointer-events-none select-none z-20" />
+            <button class="close-btn fixed top-4 right-4 w-10 h-10 rounded-full bg-light-gray flex items-center justify-center cursor-pointer z-50 border-none text-dark text-xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-transform active:scale-90 md:hidden" id="closeContent">
+                <i class="fas fa-times"></i>
+            </button>
             
-                </div>
-                
-                <div class="action-buttons">
-                    ${buttonsHTML}
-                </div>
-            `;
+            <div class="content-header mb-6">
+                <h1 class="content-title text-2xl md:text-3xl lg:text-4xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2 leading-tight">${chapter.content.title}</h1>
+                ${chapter.content.subtitle ? `<p class="content-subtitle">${chapter.content.subtitle}</p>` : ''}
+            </div>
             
-            contentContainer.classList.add('active');
+            <div class="content-body mb-8">
+                <p class="content-text leading-relaxed text-dark mb-6 text-sm md:text-base">${chapter.content.text}</p>
+                
+                ${audioSectionsHTML}
+            </div>
+            
+            <div class="action-buttons flex flex-col gap-3 mt-6 justify-center items-center md:flex-row md:flex-wrap md:gap-4">
+                ${buttonsHTML}
+            </div>
+        </div>
+    </div>
+`;    
+            contentContainer.classList.add('active', 'opacity-100', 'translate-y-0');
             
             // Add event listeners for close button and overlay
             const closeBtn = document.getElementById('closeContent');
@@ -1234,6 +838,29 @@
             overlay.addEventListener('click', closeContent);
         }, 300);
     }
+</script>
+<!-- Scroll to Top Button -->
+<button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 z-50 bg-gradient-to-br from-primary via-accent to-secondary text-white rounded-full w-14 h-14 flex items-center justify-center shadow-xl transition-all duration-300 opacity-0 hover:scale-110 hover:shadow-2xl focus:outline-none border-4 border-white/60 backdrop-blur-md ring-2 ring-accent/30">
+    <span class="sr-only">Scroll to top</span>
+    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+    </svg>
+</button>
+<script>
+    // Scroll to Top Button logic
+const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 200) {
+        scrollToTopBtn.classList.remove('hidden');
+        scrollToTopBtn.classList.add('opacity-100');
+    } else {
+        scrollToTopBtn.classList.add('hidden');
+        scrollToTopBtn.classList.remove('opacity-100');
+    }
+});
+scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 </script>
 </body>
 </html>
