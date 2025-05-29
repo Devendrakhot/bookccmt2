@@ -109,6 +109,25 @@
         height: 3.2rem;
     }
 }
+
+/* Custom scrollbar for both desktop and mobile */
+::-webkit-scrollbar {
+  width: 12px;
+  background: #f2eded;
+}
+::-webkit-scrollbar-thumb {
+  background: #f2eded;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f2eded;
+}
+
+/* Firefox */
+html {
+  scrollbar-color: #d1cbcb #f3f4f6;
+  scrollbar-width: thin;
+}
     </style>
 </head>
 <body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
