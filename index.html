@@ -750,6 +750,9 @@
             mainContent.classList.remove('popup-animate-out');
             mainContent.classList.add('translate-y-0');
             document.body.style.overflow = 'hidden';
+            // Hide scroll to top button on mobile popup open
+            scrollToTopBtn.classList.add('hidden');
+            scrollToTopBtn.classList.remove('opacity-100');
         }
         // Desktop behavior - scroll to top
         else {
@@ -770,6 +773,14 @@
             mainContent.classList.remove('active', 'translate-y-0', 'popup-animate-out');
             overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
             document.body.style.overflow = 'auto';
+            // Restore scroll to top button visibility based on scroll position
+            if (window.scrollY > 200) {
+                scrollToTopBtn.classList.remove('hidden');
+                scrollToTopBtn.classList.add('opacity-100');
+            } else {
+                scrollToTopBtn.classList.add('hidden');
+                scrollToTopBtn.classList.remove('opacity-100');
+            }
         }, 500);
     }
     
