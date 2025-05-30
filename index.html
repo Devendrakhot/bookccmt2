@@ -1091,7 +1091,7 @@ html {
                         <img src="${section.image || 'ab.webp'}" alt="Music" class="h-4 w-4 object-contain mr-2 inline-block align-middle" />
                         ${section.title}
                     </h3>
-                    <p class="audio-section-desc text-sm text-gray mb-3">${section.description}</p>
+                    
                     <audio controls class="audio-player w-full rounded-lg mt-3">
                         <source src="${section.audio}" type="audio/mpeg">
                         Your browser does not support the audio element.
@@ -1120,7 +1120,6 @@ html {
             </div>
             
             <div class="content-body mb-8">
-                <p class="content-text leading-relaxed text-dark mb-6 text-sm md:text-base">${chapter.content.text}</p>
                 
                 ${audioSectionsHTML}
             </div>
