@@ -128,36 +128,92 @@ html {
   scrollbar-color: #d1cbcb #f3f4f6;
   scrollbar-width: thin;
 }
+
+/* Remove custom scrollbar globally */
+        ::-webkit-scrollbar,
+        ::-webkit-scrollbar-thumb,
+        ::-webkit-scrollbar-thumb:hover {
+            all: unset;
+        }
+        html {
+            scrollbar-width: none !important;
+            scrollbar-color: auto !important;
+        }
+
+        /* Enable custom scrollbar only for sidebar (chapters) */
+        #sidebar {
+            scrollbar-width: thin;
+            scrollbar-color: #d1cbcb #f3f4f6;
+        }
+        #sidebar::-webkit-scrollbar {
+            width: 12px;
+            background: #f2eded;
+        }
+        #sidebar::-webkit-scrollbar-thumb {
+            background: #f2eded;
+            border-radius: 8px;
+        }
+        #sidebar::-webkit-scrollbar-thumb:hover {
+            background: #f2eded;
+        }
     </style>
 </head>
 <body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
-    <!-- Simplified Banner with Background Image -->
-    <div class="banner w-full h-[200px] flex items-center justify-center relative overflow-hidden px-8 shadow-[0_10px_30px_rgba(0,0,0,0.1)] bg-[url('./Webpagebanner.jpg')] bg-cover bg-center">
+    <!-- Responsive Banner with Centered Logo and Title -->
+    <div class="banner w-full h-[200px] flex flex-col items-center justify-center relative overflow-hidden px-4 md:px-8 shadow-[0_10px_30px_rgba(0,0,0,0.1)] bg-[url('./Webpagebanner.jpg')] bg-cover bg-center">
         <div class="banner-overlay absolute top-0 left-0 w-full h-full z-10"></div>
         
-        <!-- Floating music notes -->
-        <!-- <i class="fas fa-music music-notes absolute z-20 opacity-30 text-xl top-1/5 left-1/10"></i>
-        <i class="fas fa-music music-notes absolute z-20 opacity-30 text-lg top-3/10 right-1/6"></i>
-        <i class="fas fa-music music-notes absolute z-20 opacity-30 text-xl bottom-1/5 left-1/6"></i>
-         -->
-        <div class="banner-content relative z-30 text-center max-w-2xl text-primary p-8 [text-shadow:0_2px_4px_rgba(0,0,0,0.2)]">
-            <h1 class="banner-title text-4xl md:text-5xl lg:text-6xl font-bold mb-0 leading-tight relative inline-block">
-               <i> Let the Heart Sing</i>
-                <span class="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-20 h-1 bg-light rounded"></span>
+        <!-- Centered Logo -->
+        <img src="logo.png" alt="Logo"
+            class="relative z-30 mx-auto mb-2 max-h-16 md:max-h-20 w-auto object-contain pointer-events-none select-none transition-all duration-300" />
+
+        <div class="banner-content relative z-30 text-center max-w-xl text-gray p-4 md:p-8 [text-shadow:0_2px_4px_rgba(0,0,0,0.2)]">
+            <h1 class="banner-title text-2xl sm:text-3xl md:text-4xl font-bold mb-0 leading-tight relative inline-block">
+                <i>Let the Heart Sing</i>
+                <span class="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-16 md:w-20 h-1 bg-light rounded"></span>
             </h1>
         </div>
+    </div> <!-- Banner ends here -->
+
+    <!-- Modern Info Bar: Discover the joy.-->
+    <div class="w-full bg-white/80 backdrop-blur-md shadow-sm border-b border-light-gray z-30 relative overflow-hidden">
+  <div class="marquee-container relative w-full overflow-hidden whitespace-nowrap py-3 px-4">
+    <div class="marquee-track inline-block animate-marquee hover:[animation-play-state:paused]">
+      <span class="text-sm md:text-base font-medium text-dark">
+        Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy  <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/">here</a></span>.
+      </span>
+      <span class="mx-24"></span>
+      
+      <span class="text-sm md:text-base font-medium text-dark">
+     Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy here: <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/">here</a></span>.
+      </span>
     </div>
-    
+  </div>
+  <style>
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      animation: marquee 12s linear infinite;
+      will-change: transform;
+    }
+    .marquee-container:hover .animate-marquee {
+      animation-play-state: paused;
+    }
+  </style>
+</div>
+
     <!-- Overlay for mobile -->
     <div class="overlay fixed top-0 left-0 w-full h-full bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300" id="overlay"></div>
     
     <!-- Main Content Wrapper -->
     <div class="main-wrapper flex flex-col md:flex-row">
         <!-- Sidebar with chapters -->
-        <div class="sidebar bg-light p-6 border-b border-light-gray md:w-[355px] md:h-[calc(100vh-200px)] md:sticky md:top-0 md:border-r md:border-b-0 md:overflow-y-auto z-30" id="sidebar">
-            <div class="logo text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6 inline-block">
+        <div class="sidebar bg-light p-6 border-b border-light-gray md:w-[375px] md:h-[calc(100vh-200px)] md:sticky md:top-0 md:border-r md:border-b-0 md:overflow-y-auto z-30" id="sidebar">
+            <!-- <div class="logo text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6 inline-block">
                 <i>Let the Heart Sing</i>
-            </div>
+            </div> -->
             
             <div class="chapter-list flex flex-col gap-2" id="chapterList">
                 <!-- Chapters will be inserted here -->
@@ -1054,8 +1110,7 @@ html {
     <div class="relative"> <!-- Container for positioning -->
         <!-- Content wrapper with higher z-index -->
         <div class="relative z-10">
-            <img src="logo.png" alt="Logo" class="absolute top-2 right-8 max-h-24 w-auto object-contain pointer-events-none select-none z-20" />
-            <button class="close-btn fixed top-4 right-4 w-10 h-10 rounded-full bg-light-gray flex items-center justify-center cursor-pointer z-50 border-none text-dark text-xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-transform active:scale-90 md:hidden" id="closeContent">
+                 <button class="close-btn fixed top-4 right-4 w-10 h-10 rounded-full bg-light-gray flex items-center justify-center cursor-pointer z-50 border-none text-dark text-xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-transform active:scale-90 md:hidden" id="closeContent">
                 <i class="fas fa-times"></i>
             </button>
             
@@ -1131,5 +1186,6 @@ scrollToTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 </script>
+ 
 </body>
 </html>
