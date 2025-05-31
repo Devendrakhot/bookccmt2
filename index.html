@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Let the heart sing</title>
+    <title>Let the Heart Sing</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -156,15 +156,33 @@ html {
         #sidebar::-webkit-scrollbar-thumb:hover {
             background: #f2eded;
         }
+        
+        #closeContent {
+    background: rgba(255,255,255,0.45) !important; /* semi-transparent white */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(0,0,0,0.08);
+    box-shadow: 0 4px 24px 0 rgba(31, 38, 135, 0.10);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+#closeContent:hover, #closeContent:focus {
+    background: rgba(255,255,255,0.85) !important;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+   
+}
+#closeContent i {
+    color: #111827;
+    opacity: 0.8;
+}
     </style>
 </head>
 <body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
     <!-- Responsive Banner with Centered Logo and Title -->
-    <div class="banner w-full h-[200px] flex flex-col items-center justify-center relative overflow-hidden px-4 md:px-8 shadow-[0_10px_30px_rgba(0,0,0,0.1)] bg-[url('./Webpagebanner.jpg')] bg-cover bg-center">
+    <div class="banner w-full h-[200px] flex flex-col items-center justify-center relative overflow-hidden px-4 md:px-8 shadow-[0_10px_30px_rgba(0,0,0,0.1)] bg-[url('./let_the_heart_sing/Webpagebanner.jpg')] bg-cover bg-center">
         <div class="banner-overlay absolute top-0 left-0 w-full h-full z-10"></div>
         
         <!-- Centered Logo -->
-        <img src="logo.png" alt="Logo"
+        <img src="./let_the_heart_sing/logo.png" alt="Logo"
             class="relative z-30 mx-auto mb-2 max-h-16 md:max-h-20 w-auto object-contain pointer-events-none select-none transition-all duration-300" />
 
         <div class="banner-content relative z-30 text-center max-w-xl text-gray p-4 md:p-8 [text-shadow:0_2px_4px_rgba(0,0,0,0.2)]">
@@ -180,7 +198,7 @@ html {
   <div class="marquee-container relative w-full overflow-hidden whitespace-nowrap py-3 px-4">
     <div class="marquee-track inline-block animate-marquee hover:[animation-play-state:paused]">
       <span class="text-sm md:text-base font-medium text-dark">
-        Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy  <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/">here</a></span>.
+        Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy  <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/" target="_blank">here</a></span>.
       </span>
       <span class="mx-24"></span>
       
@@ -226,7 +244,12 @@ html {
                 <!-- Content will be dynamically inserted here -->
             </div>
         </div>
-    </div>
+    </div> <!-- End of .main-wrapper -->
+
+<!-- Global Close Button for mobile popup -->
+<button id="closeContent" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-light-gray flex items-center justify-center cursor-pointer z-[100] border-none text-dark text-2xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-transform active:scale-90 md:hidden">
+    <i class="fas fa-times"></i>
+</button>
 
 <script>
     // Sample chapter data with multiple audio sections and different notation images
@@ -245,26 +268,26 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Rama ko jisane bhi pa liya",
                         description: "Exploring the seven basic notes",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                   
                     },
                     {
                         title: "Karaoke - Rama ko jisane bhi pa liya",
                         description: "Understanding the concept of tonic and dominant",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
                 buttons: [
@@ -276,11 +299,11 @@ html {
                         type: "accent"
                     },
                      {
-                        text: "Notation",
-                        icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                        type: "primary"
-                    }
+    text: "Notation",
+    icon: "file-pdf",
+    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
+    type: "primary"
+}
                 ],
                      }
         },
@@ -298,25 +321,25 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Understanding 4/4, 3/4 and other time signatures",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Creating off-beat rhythms",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
-                        title: "Song - Ojasvi Tejasvi",
+                        title: "Song - Ojasvi tejasvi yashasvi Hanuman",
                         description: "Exploring rhythmic subdivisions",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Ojasvi tejasvi yashasvi Hanuman",
                         description: "Understanding polyrhythms",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                    
                 ],
@@ -324,7 +347,7 @@ html {
                     {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -344,32 +367,32 @@ html {
                         title: "Aroha and Avaroha",
                         description: "The emotional impact of scales",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Creating musical sentences",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
-                        title: "Song - Jaha Jaha Raghunatha",
+                        title: "Song - Jaha jaha Raghunatha sankirtana",
                         description: "Exploring melodic motifs",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Jaha jaha Raghunatha sankirtana",
                         description: "Understanding melodic contour",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
                 buttons: [
                     {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -389,25 +412,25 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Major, minor, diminished and augmented",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Common patterns in Western music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
-                        title: "Song - Adi deva Mahadeva",
+                        title: "Song - Adideva mahadeva he dayanidhe",
                         description: "Understanding chord progressions",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
-                        title: "Karaoke - Adi Deva Mahadeva",
+                        title: "Karaoke - Adideva mahadeva he dayanidhe",
                         description: "Exploring harmonic rhythm",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                     
                 ],
@@ -428,7 +451,7 @@ html {
                     {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -448,26 +471,26 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Major, minor, diminished and augmented",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Common patterns in Western music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
 
                     },
                      {
                         title: "Song - Nanda-nandana angana more ayo ri sakhi",
                         description: "Major, minor, diminished and augmented",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke- Nanda-nandana angana more ayo ri sakhi",
                         description: "Common patterns in Western music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     },
                     
                 ],
@@ -477,7 +500,7 @@ html {
                     {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -497,25 +520,25 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Major, minor, diminished and augmented",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Common patterns in Western music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song -Jagata janani jagata kalyani",
                         description: "Major, minor, diminished and augmented",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke- Jagata janani jagata kalyani",
                         description: "Common patterns in Western music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     },
                     
                 ],
@@ -525,7 +548,7 @@ html {
                     {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -545,25 +568,25 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", 
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Gate raho mana Ganesha ke guna",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Gate raho mana Ganesha ke guna",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
                 buttons: [
@@ -577,7 +600,7 @@ html {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -597,25 +620,25 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Gurudeva tava mahaniya kripa",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Gurudeva tava mahaniya kripa",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
                 buttons: [
@@ -624,7 +647,7 @@ html {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -644,25 +667,25 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Jaya jaya guna sagara",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Jaya jaya guna sagara",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
                 buttons: [
@@ -676,7 +699,7 @@ html {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -696,31 +719,31 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Jaya jaya Vittala Rakhumai Vittala",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Jaya jaya Vittala Rakhumai Vittala",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
                 buttons: [
                    
                     {
-                        text: "Musical Activity-1",
+                        text: "Musical Activity-4",
                         icon: "video",
                         url: "https://youtu.be/qSw6Dk5FwvY?si=G3dmCE4445HzliYv   ",
                         type: "accent"
@@ -728,7 +751,7 @@ html {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -748,25 +771,25 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Dhanya dhanya ati dhanya main",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Dhanya dhanya ati dhanya main",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
                 buttons: [
@@ -775,7 +798,7 @@ html {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -795,33 +818,40 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Prano se pyaare",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Prano se pyaare",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
+                    },
+                     {
+                        title: "Musical Rendition - Nama Ramayan",
+                        description: "Introduction to beat and tempo",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                        image: "./let_the_heart_sing/4_song.webp"
                     }
                 ],
                 buttons: [
                    
-                     {
-                        text: "Nama Ramayan",
-                        icon: "music",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    
+                       {
+                        text: "Notation",
+                        icon: "file-pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -841,25 +871,25 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Tvam hi no neta",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Tvam hi no neta",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
                 buttons: [
@@ -868,7 +898,7 @@ html {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -877,10 +907,10 @@ html {
           { 
             id: 14,
             number: "14",
-            title: "One with YOu, One with All", 
+            title: "One with You, One with All", 
             description: "Apa ki mana mein lagi hain lagan jab se heh prabhu",
             content: {
-                title: "One with YOu, One with All",
+                title: "One with You, One with All",
                 subtitle: "Apa ki mana mein lagi hain lagan jab se heh prabhu",
                 text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
                 audioSections: [
@@ -888,25 +918,25 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Apa ki mana mein lagi hain lagan jab se heh prabhu",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Apa ki mana mein lagi hain lagan jab se heh prabhu",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
                 buttons: [
@@ -915,7 +945,7 @@ html {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -935,25 +965,25 @@ html {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "2_ArohaandAvaroha.webp"
+                        image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "3_Pakad.webp"
+                        image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Shyama sundara ko to ana hi hoga",
                         description: "Understanding high and low sounds in music",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                        image: "4_Song.webp"
+                        image: "./let_the_heart_sing/./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Shyama sundara ko to ana hi hoga",
                         description: "Introduction to beat and tempo",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        image: "1_Karaoke.webp"
+                        image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
                 buttons: [
@@ -962,7 +992,7 @@ html {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -975,6 +1005,7 @@ html {
     const contentContainer = document.getElementById('contentContainer');
     const mainContent = document.getElementById('mainContent');
     const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('closeContent');
     
     // Generate chapter list
     chapters.forEach(chapter => {
@@ -1026,9 +1057,9 @@ html {
             mainContent.classList.remove('popup-animate-out');
             mainContent.classList.add('translate-y-0');
             document.body.style.overflow = 'hidden';
-            // Hide scroll to top button on mobile popup open
             scrollToTopBtn.classList.add('hidden');
             scrollToTopBtn.classList.remove('opacity-100');
+            closeBtn.classList.remove('hidden'); // <-- Show close button
         }
         // Desktop behavior - scroll to top
         else {
@@ -1049,7 +1080,7 @@ html {
             mainContent.classList.remove('active', 'translate-y-0', 'popup-animate-out');
             overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
             document.body.style.overflow = 'auto';
-            // Restore scroll to top button visibility based on scroll position
+            closeBtn.classList.add('hidden'); // <-- Hide close button
             if (window.scrollY > 200) {
                 scrollToTopBtn.classList.remove('hidden');
                 scrollToTopBtn.classList.add('opacity-100');
@@ -1088,14 +1119,14 @@ html {
             const audioSectionsHTML = chapter.content.audioSections.map(section => `
                 <div class="media-container bg-light-gray p-5 rounded-xl mb-6 border border-light-gray">
                     <h3 class="audio-section-title text-lg font-medium text-dark mb-2 flex items-center">
-                        <img src="${section.image || 'ab.webp'}" alt="Music" class="h-4 w-4 object-contain mr-2 inline-block align-middle" />
+                        <img src="${section.image }" alt="Music" class="h-4 w-4 object-contain mr-2 inline-block align-middle" />
                         ${section.title}
                     </h3>
-                    <p class="audio-section-desc text-sm text-gray mb-3">${section.description}</p>
-                    <audio controls class="audio-player w-full rounded-lg mt-3">
-                        <source src="${section.audio}" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
+                    
+                    <audio controls controlsList="nodownload noplaybackrate" class="audio-player w-full rounded-lg mt-3">
+    <source src="${section.audio}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
                 </div>
             `).join('');
             
@@ -1110,9 +1141,6 @@ html {
     <div class="relative"> <!-- Container for positioning -->
         <!-- Content wrapper with higher z-index -->
         <div class="relative z-10">
-                 <button class="close-btn fixed top-4 right-4 w-10 h-10 rounded-full bg-light-gray flex items-center justify-center cursor-pointer z-50 border-none text-dark text-xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-transform active:scale-90 md:hidden" id="closeContent">
-                <i class="fas fa-times"></i>
-            </button>
             
             <div class="content-header mb-6">
                 <h1 class="content-title text-2xl md:text-3xl lg:text-4xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2 leading-tight">${chapter.content.title}</h1>
@@ -1120,7 +1148,6 @@ html {
             </div>
             
             <div class="content-body mb-8">
-                <p class="content-text leading-relaxed text-dark mb-6 text-sm md:text-base">${chapter.content.text}</p>
                 
                 ${audioSectionsHTML}
             </div>
