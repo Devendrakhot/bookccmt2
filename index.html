@@ -180,7 +180,7 @@ html {
   <div class="marquee-container relative w-full overflow-hidden whitespace-nowrap py-3 px-4">
     <div class="marquee-track inline-block animate-marquee hover:[animation-play-state:paused]">
       <span class="text-sm md:text-base font-medium text-dark">
-        Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy  <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/">here</a></span>.
+        Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy  <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/" target="_blank">here</a></span>.
       </span>
       <span class="mx-24"></span>
       
@@ -307,7 +307,7 @@ html {
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
-                        title: "Song - Ojasvi Tejasvi",
+                        title: "Song - Ojasvi tejasvi yashasvi Hanuman",
                         description: "Exploring rhythmic subdivisions",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
@@ -353,7 +353,7 @@ html {
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
-                        title: "Song - Jaha Jaha Raghunatha",
+                        title: "Song - Jaha jaha Raghunatha sankirtana",
                         description: "Exploring melodic motifs",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
@@ -398,13 +398,13 @@ html {
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
-                        title: "Song - Adi deva Mahadeva",
+                        title: "Song - Adideva mahadeva he dayanidhe",
                         description: "Understanding chord progressions",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
-                        title: "Karaoke - Adi Deva Mahadeva",
+                        title: "Karaoke - Adideva mahadeva he dayanidhe",
                         description: "Exploring harmonic rhythm",
                         audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
@@ -720,7 +720,7 @@ html {
                 buttons: [
                    
                     {
-                        text: "Musical Activity-1",
+                        text: "Musical Activity-4",
                         icon: "video",
                         url: "https://youtu.be/qSw6Dk5FwvY?si=G3dmCE4445HzliYv   ",
                         type: "accent"
@@ -821,6 +821,12 @@ html {
                      {
                         text: "Nama Ramayan",
                         icon: "music",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        type: "primary"
+                    },
+                       {
+                        text: "Notation",
+                        icon: "file-pdf",
                         url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
@@ -1088,7 +1094,7 @@ html {
             const audioSectionsHTML = chapter.content.audioSections.map(section => `
                 <div class="media-container bg-light-gray p-5 rounded-xl mb-6 border border-light-gray">
                     <h3 class="audio-section-title text-lg font-medium text-dark mb-2 flex items-center">
-                        <img src="${section.image || 'ab.webp'}" alt="Music" class="h-4 w-4 object-contain mr-2 inline-block align-middle" />
+                        <img src="${section.image }" alt="Music" class="h-4 w-4 object-contain mr-2 inline-block align-middle" />
                         ${section.title}
                     </h3>
                     
