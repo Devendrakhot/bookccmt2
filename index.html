@@ -156,6 +156,24 @@ html {
         #sidebar::-webkit-scrollbar-thumb:hover {
             background: #f2eded;
         }
+        
+        #closeContent {
+    background: rgba(255,255,255,0.45) !important; /* semi-transparent white */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(0,0,0,0.08);
+    box-shadow: 0 4px 24px 0 rgba(31, 38, 135, 0.10);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+#closeContent:hover, #closeContent:focus {
+    background: rgba(255,255,255,0.85) !important;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+   
+}
+#closeContent i {
+    color: #111827;
+    opacity: 0.8;
+}
     </style>
 </head>
 <body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
@@ -226,7 +244,12 @@ html {
                 <!-- Content will be dynamically inserted here -->
             </div>
         </div>
-    </div>
+    </div> <!-- End of .main-wrapper -->
+
+<!-- Global Close Button for mobile popup -->
+<button id="closeContent" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-light-gray flex items-center justify-center cursor-pointer z-[100] border-none text-dark text-2xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-transform active:scale-90 md:hidden">
+    <i class="fas fa-times"></i>
+</button>
 
 <script>
     // Sample chapter data with multiple audio sections and different notation images
@@ -982,6 +1005,7 @@ html {
     const contentContainer = document.getElementById('contentContainer');
     const mainContent = document.getElementById('mainContent');
     const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('closeContent');
     
     // Generate chapter list
     chapters.forEach(chapter => {
@@ -1033,9 +1057,9 @@ html {
             mainContent.classList.remove('popup-animate-out');
             mainContent.classList.add('translate-y-0');
             document.body.style.overflow = 'hidden';
-            // Hide scroll to top button on mobile popup open
             scrollToTopBtn.classList.add('hidden');
             scrollToTopBtn.classList.remove('opacity-100');
+            closeBtn.classList.remove('hidden'); // <-- Show close button
         }
         // Desktop behavior - scroll to top
         else {
@@ -1056,7 +1080,7 @@ html {
             mainContent.classList.remove('active', 'translate-y-0', 'popup-animate-out');
             overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
             document.body.style.overflow = 'auto';
-            // Restore scroll to top button visibility based on scroll position
+            closeBtn.classList.add('hidden'); // <-- Hide close button
             if (window.scrollY > 200) {
                 scrollToTopBtn.classList.remove('hidden');
                 scrollToTopBtn.classList.add('opacity-100');
@@ -1117,9 +1141,6 @@ html {
     <div class="relative"> <!-- Container for positioning -->
         <!-- Content wrapper with higher z-index -->
         <div class="relative z-10">
-                 <button class="close-btn fixed top-14 right-4 w-10 h-10 rounded-full bg-light-gray flex items-center justify-center cursor-pointer z-50 border-none text-dark text-xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-transform active:scale-90 md:hidden" id="closeContent">
-                <i class="fas fa-times"></i>
-            </button>
             
             <div class="content-header mb-6">
                 <h1 class="content-title text-2xl md:text-3xl lg:text-4xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2 leading-tight">${chapter.content.title}</h1>
