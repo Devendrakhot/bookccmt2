@@ -1162,5 +1162,55 @@ scrollToTopBtn.addEventListener('click', () => {
 });
 </script>
  
+<footer class="w-full bg-white/90 border-t border-light-gray shadow-[0_-2px_24px_rgba(79,70,229,0.07)] pt-6 pb-3 relative overflow-hidden">
+  <!-- Decorative background shapes -->
+  <div class="relative z-10 container mx-auto flex flex-col md:flex-row items-center justify-center gap-8 px-4">
+    <!-- Section 1: Artists (moved from right to left) -->
+    <div class="flex-1 flex flex-col items-center text-center mb-4 md:mb-0">
+      <div class="font-semibold text-primary text-base mb-1 tracking-wide">Artists</div>
+      <div class="text-sm text-gray-700 font-medium">
+        Anuradha Sridhar <span class="text-accent">- Violin</span><br>
+        Aparna Devi J <span class="text-accent">- Vocal</span><br>
+        Nikhil Pandya <span class="text-accent">- Tabla</span><br>
+        VK Vijayakumar <span class="text-accent">- Keyboard</span>
+      </div>
+    </div>
+    <!-- Divider -->
+    <div class="hidden md:block h-14 w-px bg-gradient-to-b from-primary/20 via-accent/20 to-light-gray mx-6"></div>
+    <!-- Section 2: Image Content (remains in the center) -->
+    <div class="flex-1 flex flex-col items-center text-center mb-4 md:mb-0">
+      <div class="relative mb-2">
+        <img src="./let_the_heart_sing/logoccmt.png" alt="Logo" class="h-28 w-28 rounded-full border-white object-contain" />
+      </div>
+    </div>
+    <!-- Divider -->
+    <div class="hidden md:block h-14 w-px bg-gradient-to-b from-accent/20 via-primary/20 to-light-gray mx-6"></div>
+    <!-- Section 3: Musical Pedagogy & Learning Resources (moved from left to right) -->
+    <div class="flex-1 flex flex-col items-center text-center">
+      <div class="font-semibold text-primary text-base mb-1 tracking-wide">Musical Pedagogy & Learning Resources</div>
+      <div class="text-sm text-gray-700 font-medium">Tara Kini<br>Chinthu Param</div>
+    </div>
+  </div>
+  <!-- Horizontal line -->
+  <hr class="my-5 border-light-gray/70 w-11/12 mx-auto">
+  <!-- Social Media Links -->
+  <div class="flex justify-center gap-6 mt-1 mb-1 z-10 relative">
+    <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"
+      class="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-light-gray shadow transition hover:bg-primary hover:text-white group">
+      <i class="fab fa-facebook-f text-lg group-hover:text-white transition"></i>
+    </a>
+    <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"
+      class="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-light-gray shadow transition hover:bg-accent hover:text-white group">
+      <i class="fab fa-instagram text-lg group-hover:text-white transition"></i>
+    </a>
+    <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube"
+      class="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-light-gray shadow transition hover:bg-red-600 hover:text-white group">
+      <i class="fab fa-youtube text-lg group-hover:text-white transition"></i>
+    </a>
+  </div>
+  <div class="text-center text-xs text-gray-400 mt-2 z-10 relative">
+    Central Chinmaya Mission Trust &copy; 2025, Mumbai, India
+  </div>
+</footer>
 </body>
 </html>
