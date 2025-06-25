@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,6 +122,77 @@
         .marquee-container:hover .animate-marquee {
             animation-play-state: paused;
         }
+
+        /* Hide scrollbars in the PDF modal iframe for all browsers */
+#tipNotesModal iframe {
+  scrollbar-width: none; /* Firefox */
+}
+#tipNotesModal iframe::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+/* Remove border radius at the bottom for a cleaner look */
+#tipNotesModal iframe {
+  border-radius: 0 0 0 0 !important;
+}
+
+/* Only show scrollbars for the chapter sidebar, hide everywhere else */
+body, html, * {
+  scrollbar-width: none !important; /* Firefox */
+}
+*::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+}
+#sidebar, #sidebar * {
+  scrollbar-width: thin !important;
+  scrollbar-color: #d1cbcb #f3f4f6 !important;
+}
+#sidebar::-webkit-scrollbar {
+  display: block !important;
+  width: 12px !important;
+  background: #f2eded !important;
+}
+#sidebar::-webkit-scrollbar-thumb {
+  background: #f2eded !important;
+  border-radius: 8px !important;
+}
+#sidebar::-webkit-scrollbar-thumb:hover {
+  background: #d1cbcb !important;
+}
+
+/* Remove scrollbars from the Tip & Notes modal and its iframe for all browsers */
+#tipNotesModal {
+  overflow: hidden !important;
+}
+#tipNotesModal iframe {
+  overflow: hidden !important;
+  scrollbar-width: none !important; /* Firefox */
+}
+#tipNotesModal iframe::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+}
+
+/* Responsive adjustments for Tip & Notes modal on mobile */
+@media (max-width: 640px) {
+  #tipNotesModal {
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+  }
+  #tipNotesModal .bg-white {
+    max-width: 98vw !important;
+    width: 98vw !important;
+    min-width: 0 !important;
+    border-radius: 1.25rem !important;
+    margin: 0 auto !important;
+    left: 0;
+    right: 0;
+  }
+  #tipNotesModal iframe {
+    width: 100% !important;
+    margin: 0 auto !important;
+    display: block;
+  }
+}
     </style>
 </head>
 <body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
@@ -199,6 +269,19 @@
 <button id="closeContent" class="hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-light-gray flex items-center justify-center cursor-pointer z-[100] border-none text-dark text-2xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-transform active:scale-90 md:hidden">
     <i class="fas fa-times"></i>
 </button>
+
+<!-- Add Tip & Notes button HTML -->
+<button id="tipNotesBtn" class="fixed bottom-24 right-6 z-[99] bg-primary text-white px-5 py-3 rounded-full shadow-lg flex items-center gap-2 hover:bg-primary-light transition-all font-medium text-base">
+  <i class="fas fa-lightbulb"></i> Tip & Notes
+</button>
+
+<!-- Modal for Tip & Notes -->
+<div id="tipNotesModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-[100] opacity-0 pointer-events-none transition-opacity duration-300">
+  <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-0 relative animate-popup-slide-in overflow-hidden">
+    <button id="closeTipNotes" class="absolute top-4 right-4 bg-white/80 hover:bg-primary-light text-primary hover:text-white border border-primary/20 rounded-full w-10 h-10 flex items-center justify-center shadow transition-all duration-200 z-10 focus:outline-none focus:ring-2 focus:ring-primary"><i class="fas fa-times"></i></button>
+    <iframe src="https://share.chinmayamission.com/let_the_heart_sing/Tips_and_Notes.pdf#toolbar=0&navpanes=0&scrollbar=0" class="w-full h-[80vh] rounded-b-xl border-0 overflow-hidden" frameborder="0" style="min-height:500px; overflow:hidden;" scrolling="no"></iframe>
+  </div>
+</div>
 
 <script>
     // Sample chapter data with multiple audio sections and different notation images
@@ -1138,6 +1221,26 @@
             overlay.addEventListener('click', closeContent);
         }, window.innerWidth >= 768 ? 250 : 200);
     }
+
+    // Show modal on button click
+ tipNotesBtn.addEventListener('click', () => {
+   tipNotesModal.classList.remove('opacity-0', 'pointer-events-none');
+   tipNotesModal.classList.add('opacity-100');
+ });
+
+ // Hide modal on close
+ tipNotesModal.querySelector('#closeTipNotes').addEventListener('click', () => {
+   tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
+   tipNotesModal.classList.remove('opacity-100');
+ });
+
+ // Hide modal when clicking outside the modal content
+ tipNotesModal.addEventListener('click', (e) => {
+   if (e.target === tipNotesModal) {
+     tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
+     tipNotesModal.classList.remove('opacity-100');
+   }
+ });
 </script>
 <!-- Scroll to Top Button -->
 <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 z-50 bg-gradient-to-br from-primary via-accent to-secondary text-white rounded-full w-14 h-14 flex items-center justify-center shadow-xl transition-all duration-300 opacity-0 hover:scale-110 hover:shadow-2xl focus:outline-none border-4 border-white/60 backdrop-blur-md ring-2 ring-accent/30">
@@ -1235,7 +1338,7 @@ Chinmaya Mission expresses heartfelt gratitude to Anuradha Shridhar, whose time,
       width: 4.5rem !important;
     }
     footer .w-full[style] {
-      font-size: 0.8rem !important;
+      font-size:  0.8rem !important;
       padding-left: 0.5rem !important;
       padding-right: 0.5rem !important;
       white-space: normal !important;
