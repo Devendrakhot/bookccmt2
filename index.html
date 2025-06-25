@@ -170,6 +170,29 @@ body, html, * {
 #tipNotesModal iframe::-webkit-scrollbar {
   display: none !important; /* Chrome, Safari, Opera */
 }
+
+/* Responsive adjustments for Tip & Notes modal on mobile */
+@media (max-width: 640px) {
+  #tipNotesModal .bg-white {
+    max-width: 98vw !important;
+    width: 98vw !important;
+    min-width: 0 !important;
+    border-radius: 1.25rem !important;
+    padding: 0 !important;
+  }
+  #tipNotesModal iframe {
+    height: 65vh !important;
+    min-height: 300px !important;
+    border-radius: 0 0 1.25rem 1.25rem !important;
+  }
+  #tipNotesModal button#closeTipNotes {
+    top: 2vw !important;
+    right: 2vw !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    font-size: 1.25rem !important;
+  }
+}
     </style>
 </head>
 <body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
