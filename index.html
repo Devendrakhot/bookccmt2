@@ -173,24 +173,24 @@ body, html, * {
 
 /* Responsive adjustments for Tip & Notes modal on mobile */
 @media (max-width: 640px) {
+  #tipNotesModal {
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+  }
   #tipNotesModal .bg-white {
     max-width: 98vw !important;
     width: 98vw !important;
     min-width: 0 !important;
     border-radius: 1.25rem !important;
-    padding: 0 !important;
+    margin: 0 auto !important;
+    left: 0;
+    right: 0;
   }
   #tipNotesModal iframe {
-    height: 65vh !important;
-    min-height: 300px !important;
-    border-radius: 0 0 1.25rem 1.25rem !important;
-  }
-  #tipNotesModal button#closeTipNotes {
-    top: 2vw !important;
-    right: 2vw !important;
-    width: 2.5rem !important;
-    height: 2.5rem !important;
-    font-size: 1.25rem !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    display: block;
   }
 }
     </style>
@@ -1338,7 +1338,7 @@ Chinmaya Mission expresses heartfelt gratitude to Anuradha Shridhar, whose time,
       width: 4.5rem !important;
     }
     footer .w-full[style] {
-      font-size: 0.8rem !important;
+      font-size:  0.8rem !important;
       padding-left: 0.5rem !important;
       padding-right: 0.5rem !important;
       white-space: normal !important;
