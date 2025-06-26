@@ -193,21 +193,6 @@ body, html, * {
     display: block;
   }
 }
-
-@media (max-width: 767px) {
-  .main-content {
-    position: fixed;
-    top: 200px;
-    left: 0;
-    width: 100vw;
-    height: calc(100vh - 200px);
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch;
-    background: #faf9f6;
-    z-index: 50;
-    border-radius: 1.5rem 1.5rem 0 0;
-  }
-}
     </style>
 </head>
 <body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
@@ -1276,8 +1261,23 @@ tipNotesModal.querySelector('#closeTipNotes').addEventListener('click', () => {
       e.preventDefault();
       e.stopPropagation();
       if (isMobile()) {
-        // On all mobile devices, just open the PDF in a new tab
-        window.open(pdfUrl, '_blank', 'noopener');
+        // iOS Safari: try anchor click with target _blank, fallback to location.href
+        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+          try {
+            var a = document.createElement('a');
+            a.href = pdfUrl;
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          } catch (err) {
+            window.location.href = pdfUrl;
+          }
+        } else {
+          window.open(pdfUrl, '_blank', 'noopener');
+        }
         // Do NOT open modal on mobile
         return;
       }
