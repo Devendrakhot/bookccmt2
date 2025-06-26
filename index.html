@@ -1221,25 +1221,30 @@ body, html, * {
         }, window.innerWidth >= 768 ? 250 : 200);
     }
 
-    // Show modal on button click
- tipNotesBtn.addEventListener('click', () => {
-   tipNotesModal.classList.remove('opacity-0', 'pointer-events-none');
-   tipNotesModal.classList.add('opacity-100');
- });
+    // Show modal on button click (desktop only)
+if (typeof tipNotesBtn !== 'undefined' && typeof tipNotesModal !== 'undefined') {
+  tipNotesBtn.addEventListener('click', () => {
+    if (window.innerWidth >= 768) {
+      tipNotesModal.classList.remove('opacity-0', 'pointer-events-none');
+      tipNotesModal.classList.add('opacity-100');
+    }
+  });
+}
 
- // Hide modal on close
- tipNotesModal.querySelector('#closeTipNotes').addEventListener('click', () => {
+// Hide modal on close
+tipNotesModal.querySelector('#closeTipNotes').addEventListener('click', () => {
    tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
    tipNotesModal.classList.remove('opacity-100');
  });
 
- // Hide modal when clicking outside the modal content
+ // Hide modal when clicking outside the modal content (desktop only)
  tipNotesModal.addEventListener('click', (e) => {
-   if (e.target === tipNotesModal) {
-     tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
-     tipNotesModal.classList.remove('opacity-100');
-   }
- });
+  if (window.innerWidth >= 768 && e.target === tipNotesModal) {
+    tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
+    tipNotesModal.classList.remove('opacity-100');
+  }
+});
+
 (function() {
   var tipBtn = document.getElementById('tipNotesBtn');
   var tipModal = document.getElementById('tipNotesModal');
@@ -1273,7 +1278,11 @@ body, html, * {
         } else {
           window.open(pdfUrl, '_blank', 'noopener');
         }
-      } else if (tipModal) {
+        // Do NOT open modal on mobile
+        return;
+      }
+      // Only open modal on desktop
+      if (window.innerWidth >= 768 && tipModal) {
         tipModal.classList.remove('opacity-0', 'pointer-events-none');
         tipModal.classList.add('opacity-100');
       }
