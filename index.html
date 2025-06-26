@@ -36,17 +36,35 @@
         .music-notes { animation: float 5s infinite ease-in-out; }
 
         @keyframes popup-slide-in {
-            0% { transform: translateY(100%); opacity: 0.5;}
-            80% { transform: translateY(-10px); opacity: 1;}
-            100% { transform: translateY(0); opacity: 1;}
+          0% {
+    transform: translateY(100%);
+    opacity: 0.5;
+  }
+  80% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
         }
         @keyframes popup-slide-out {
-            0% { transform: translateY(0); opacity: 1;}
-            100% { transform: translateY(100%); opacity: 0;}
+            0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
         }
-        .popup-animate-in { animation: popup-slide-in 0.7s cubic-bezier(0.25,1,0.5,1) both;}
-        .popup-animate-out { animation: popup-slide-out 0.5s cubic-bezier(0.25,1,0.5,1) both;}
-
+        .popup-animate-in {
+  animation: popup-slide-in 0.7s cubic-bezier(0.25,1,0.5,1) both;
+}
+.popup-animate-out {
+  animation: popup-slide-out 0.5s cubic-bezier(0.25,1,0.5,1) both;
+}
         #scrollToTopBtn {
             background: linear-gradient(135deg, rgba(79,70,229,0.85) 0%, rgba(236,72,153,0.85) 100%);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
@@ -1088,9 +1106,9 @@ body, html, * {
             mainContent.classList.remove('popup-animate-out');
             mainContent.classList.add('translate-y-0');
             document.body.style.overflow = 'hidden';
-            // Hide scroll to top button on mobile popup open
             scrollToTopBtn.classList.add('hidden');
             scrollToTopBtn.classList.remove('opacity-100');
+            closeBtn.classList.remove('hidden'); // <-- Show close button
         }
         // Desktop behavior - scroll to top
         else {
