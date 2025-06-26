@@ -214,32 +214,36 @@ body, html, * {
 
     <!-- Modern Info Bar: Discover the joy.-->
     <div class="w-full bg-white/80 backdrop-blur-md shadow-sm border-b border-light-gray z-30 relative overflow-hidden">
-  <div class="marquee-container relative w-full overflow-hidden whitespace-nowrap py-3 px-4">
-    <div class="marquee-track inline-block animate-marquee hover:[animation-play-state:paused]">
-      <span class="text-sm md:text-base font-medium text-dark">
-        Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy  <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/" target="_blank">here</a></span>.
-      </span>
-      <span class="mx-24"></span>
-      
-      <span class="text-sm md:text-base font-medium text-dark">
-     Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy here: <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/">here</a></span>.
-      </span>
+      <div class="flex items-center">
+        <button id="tipNotesBtn" class="ml-4 my-2 bg-primary text-white border border-primary px-6 py-1.5 rounded-full shadow-sm hover:text-white transition font-medium text-xs focus:outline-none focus:ring-2 focus:ring-primary/30 min-w-fit w-auto">
+          Tip & Notes
+        </button>
+        <div class="marquee-container relative w-full overflow-hidden whitespace-nowrap py-3 px-4">
+          <div class="marquee-track inline-block animate-marquee hover:[animation-play-state:paused]">
+            <span class="text-sm md:text-base font-medium text-dark">
+              Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy  <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/" target="_blank">here</a></span>.
+            </span>
+            <span class="mx-24"></span>
+            <span class="text-sm md:text-base font-medium text-dark">
+              Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy here: <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/">here</a></span>.
+            </span>
+          </div>
+        </div>
+      </div>
+      <style>
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 12s linear infinite;
+          will-change: transform;
+        }
+        .marquee-container:hover .animate-marquee {
+          animation-play-state: paused;
+        }
+      </style>
     </div>
-  </div>
-  <style>
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .animate-marquee {
-      animation: marquee 12s linear infinite;
-      will-change: transform;
-    }
-    .marquee-container:hover .animate-marquee {
-      animation-play-state: paused;
-    }
-  </style>
-</div>
 
     <!-- Overlay for mobile -->
     <div class="overlay fixed top-0 left-0 w-full h-full bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300" id="overlay"></div>
@@ -268,11 +272,6 @@ body, html, * {
 <!-- Global Close Button for mobile popup -->
 <button id="closeContent" class="hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-light-gray flex items-center justify-center cursor-pointer z-[100] border-none text-dark text-2xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-transform active:scale-90 md:hidden">
     <i class="fas fa-times"></i>
-</button>
-
-<!-- Add Tip & Notes button HTML -->
-<button id="tipNotesBtn" class="fixed bottom-24 right-6 z-[99] bg-primary text-white px-5 py-3 rounded-full shadow-lg flex items-center gap-2 hover:bg-primary-light transition-all font-medium text-base">
-  <i class="fas fa-lightbulb"></i> Tip & Notes
 </button>
 
 <!-- Modal for Tip & Notes -->
@@ -471,7 +470,7 @@ body, html, * {
                     {
                         text: "Musical Activity-1",
                         icon: "music",
-                        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
+                        url: "https://share.chinmayamission.com/let_the_heart_sing/04_Discovering_Mahadeva_The_Forever_One/16_Janaki_Jivana.mp3",
                         type: "accent"
                     },
                     {
@@ -1241,6 +1240,52 @@ body, html, * {
      tipNotesModal.classList.remove('opacity-100');
    }
  });
+(function() {
+  var tipBtn = document.getElementById('tipNotesBtn');
+  var tipModal = document.getElementById('tipNotesModal');
+  var closeTip = document.getElementById('closeTipNotes');
+  var pdfUrl = 'https://share.chinmayamission.com/let_the_heart_sing/Tips_and_Notes.pdf#toolbar=0&navpanes=0&scrollbar=0';
+
+  function isMobile() {
+    // iOS fix: use userAgent to detect iPhone/iPad/iPod or small width
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+  }
+
+  if (tipBtn) {
+    tipBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (isMobile()) {
+        // iOS Safari: try anchor click with target _blank, fallback to location.href
+        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+          try {
+            var a = document.createElement('a');
+            a.href = pdfUrl;
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          } catch (err) {
+            window.location.href = pdfUrl;
+          }
+        } else {
+          window.open(pdfUrl, '_blank', 'noopener');
+        }
+      } else if (tipModal) {
+        tipModal.classList.remove('opacity-0', 'pointer-events-none');
+        tipModal.classList.add('opacity-100');
+      }
+    });
+  }
+  if (closeTip && tipModal) {
+    closeTip.addEventListener('click', function() {
+      tipModal.classList.add('opacity-0', 'pointer-events-none');
+      tipModal.classList.remove('opacity-100');
+    });
+  }
+})();
 </script>
 <!-- Scroll to Top Button -->
 <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 z-50 bg-gradient-to-br from-primary via-accent to-secondary text-white rounded-full w-14 h-14 flex items-center justify-center shadow-xl transition-all duration-300 opacity-0 hover:scale-110 hover:shadow-2xl focus:outline-none border-4 border-white/60 backdrop-blur-md ring-2 ring-accent/30">
