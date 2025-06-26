@@ -124,104 +124,75 @@
         }
 
         /* Hide scrollbars in the PDF modal iframe for all browsers */
-        #tipNotesModal iframe {
-          scrollbar-width: none; /* Firefox */
-        }
-        #tipNotesModal iframe::-webkit-scrollbar {
-          display: none; /* Chrome, Safari, Opera */
-        }
-        /* Remove border radius at the bottom for a cleaner look */
-        #tipNotesModal iframe {
-          border-radius: 0 0 0 0 !important;
-        }
+#tipNotesModal iframe {
+  scrollbar-width: none; /* Firefox */
+}
+#tipNotesModal iframe::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+/* Remove border radius at the bottom for a cleaner look */
+#tipNotesModal iframe {
+  border-radius: 0 0 0 0 !important;
+}
 
-        /* Only show scrollbars for the chapter sidebar, hide everywhere else */
-        body, html, * {
-          scrollbar-width: none !important; /* Firefox */
-        }
-        *::-webkit-scrollbar {
-          display: none !important; /* Chrome, Safari, Opera */
-        }
-        #sidebar, #sidebar * {
-          scrollbar-width: thin !important;
-          scrollbar-color: #d1cbcb #f3f4f6 !important;
-        }
-        #sidebar::-webkit-scrollbar {
-          display: block !important;
-          width: 12px !important;
-          background: #f2eded !important;
-        }
-        #sidebar::-webkit-scrollbar-thumb {
-          background: #f2eded !important;
-          border-radius: 8px !important;
-        }
-        #sidebar::-webkit-scrollbar-thumb:hover {
-          background: #d1cbcb !important;
-        }
+/* Only show scrollbars for the chapter sidebar, hide everywhere else */
+body, html, * {
+  scrollbar-width: none !important; /* Firefox */
+}
+*::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+}
+#sidebar, #sidebar * {
+  scrollbar-width: thin !important;
+  scrollbar-color: #d1cbcb #f3f4f6 !important;
+}
+#sidebar::-webkit-scrollbar {
+  display: block !important;
+  width: 12px !important;
+  background: #f2eded !important;
+}
+#sidebar::-webkit-scrollbar-thumb {
+  background: #f2eded !important;
+  border-radius: 8px !important;
+}
+#sidebar::-webkit-scrollbar-thumb:hover {
+  background: #d1cbcb !important;
+}
 
-        /* Remove scrollbars from the Tip & Notes modal and its iframe for all browsers */
-        #tipNotesModal {
-          overflow: hidden !important;
-        }
-        #tipNotesModal iframe {
-          overflow: hidden !important;
-          scrollbar-width: none !important; /* Firefox */
-        }
-        #tipNotesModal iframe::-webkit-scrollbar {
-          display: none !important; /* Chrome, Safari, Opera */
-        }
+/* Remove scrollbars from the Tip & Notes modal and its iframe for all browsers */
+#tipNotesModal {
+  overflow: hidden !important;
+}
+#tipNotesModal iframe {
+  overflow: hidden !important;
+  scrollbar-width: none !important; /* Firefox */
+}
+#tipNotesModal iframe::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+}
 
-        /* Responsive adjustments for Tip & Notes modal on mobile */
-        @media (max-width: 640px) {
-          #tipNotesModal {
-            align-items: center !important;
-            justify-content: center !important;
-            padding: 0 !important;
-          }
-          #tipNotesModal .bg-white {
-            max-width: 98vw !important;
-            width: 98vw !important;
-            min-width: 0 !important;
-            border-radius: 1.25rem !important;
-            margin: 0 auto !important;
-            left: 0;
-            right: 0;
-          }
-          #tipNotesModal iframe {
-            width: 100% !important;
-            margin: 0 auto !important;
-            display: block;
-          }
-        }
-
-        /* iOS FIXES */
-        #mainContent {
-          -webkit-overflow-scrolling: touch;
-          overscroll-behavior: contain;
-        }
-        #mainContent.active {
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100vh;
-          transform: translateY(0);
-          -webkit-transform: translateY(0);
-        }
-        .content-scroller {
-          -webkit-overflow-scrolling: touch;
-          height: 100%;
-          overflow-y: auto;
-        }
-        /* Fix for iOS input zooming */
-        @media screen and (max-width: 767px) {
-          input, select, textarea {
-              font-size: 16px;
-          }
-        }
-        /* Prevent iOS from highlighting elements on tap */
-        * {
-          -webkit-tap-highlight-color: rgba(0,0,0,0);
-        }
+/* Responsive adjustments for Tip & Notes modal on mobile */
+@media (max-width: 640px) {
+  #tipNotesModal {
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+  }
+  #tipNotesModal .bg-white {
+    max-width: 98vw !important;
+    width: 98vw !important;
+    min-width: 0 !important;
+    border-radius: 1.25rem !important;
+    margin: 0 auto !important;
+    left: 0;
+    right: 0;
+  }
+  #tipNotesModal iframe {
+    width: 100% !important;
+    margin: 0 auto !important;
+    display: block;
+  }
+}
     </style>
 </head>
 <body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
@@ -259,6 +230,19 @@
           </div>
         </div>
       </div>
+      <style>
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 12s linear infinite;
+          will-change: transform;
+        }
+        .marquee-container:hover .animate-marquee {
+          animation-play-state: paused;
+        }
+      </style>
     </div>
 
     <!-- Overlay for mobile -->
@@ -268,33 +252,35 @@
     <div class="main-wrapper flex flex-col md:flex-row">
         <!-- Sidebar with chapters -->
         <div class="sidebar bg-light p-6 border-b border-light-gray md:w-[375px] md:h-[calc(100vh-200px)] md:sticky md:top-0 md:border-r md:border-b-0 md:overflow-y-auto z-30" id="sidebar">
+            <!-- <div class="logo text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6 inline-block">
+                <i>Let the Heart Sing</i>
+            </div> -->
+            
             <div class="chapter-list flex flex-col gap-2" id="chapterList">
                 <!-- Chapters will be inserted here -->
             </div>
         </div>
         
         <!-- Main content area -->
-        <div class="main-content bg-light overflow-y-auto fixed top-0 left-0 w-full h-full bg-light z-50 translate-y-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] pb-8 shadow-[0_-10px_30px_rgba(0,0,0,0.1)] rounded-t-2xl md:relative md:z-0 md:translate-y-0 md:shadow-none md:rounded-none md:h-[calc(100vh-200px)]" id="mainContent">
-            <div class="content-scroller h-full overflow-y-auto">
-                <div class="content-container p-6 opacity-0 translate-y-5 transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] md:pt-8 md:px-8 lg:max-w-4xl lg:mx-auto lg:py-12" id="contentContainer">
-                    <!-- Content will be dynamically inserted here -->
-                </div>
+        <div class="main-content bg-light overflow-y-auto h-[calc(100vh-200px)] fixed top-0 left-0 w-full h-full bg-light z-50 translate-y-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-y-auto pb-8 shadow-[0_-10px_30px_rgba(0,0,0,0.1)] rounded-t-2xl md:relative md:z-0 md:translate-y-0 md:shadow-none md:rounded-none md:h-[calc(100vh-200px)]" id="mainContent">
+            <div class="content-container p-6 opacity-0 translate-y-5 transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] md:pt-8 md:px-8 lg:max-w-4xl lg:mx-auto lg:py-12" id="contentContainer">
+                <!-- Content will be dynamically inserted here -->
             </div>
         </div>
     </div> <!-- End of .main-wrapper -->
 
-    <!-- Global Close Button for mobile popup -->
-    <button id="closeContent" class="hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-light-gray flex items-center justify-center cursor-pointer z-[100] border-none text-dark text-2xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-transform active:scale-90 md:hidden">
-        <i class="fas fa-times"></i>
-    </button>
+<!-- Global Close Button for mobile popup -->
+<button id="closeContent" class="hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-light-gray flex items-center justify-center cursor-pointer z-[100] border-none text-dark text-2xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-transform active:scale-90 md:hidden">
+    <i class="fas fa-times"></i>
+</button>
 
-    <!-- Modal for Tip & Notes -->
-    <div id="tipNotesModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-[100] opacity-0 pointer-events-none transition-opacity duration-300">
-      <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-0 relative animate-popup-slide-in overflow-hidden">
-        <button id="closeTipNotes" class="absolute top-4 right-4 bg-white/80 hover:bg-primary-light text-primary hover:text-white border border-primary/20 rounded-full w-10 h-10 flex items-center justify-center shadow transition-all duration-200 z-10 focus:outline-none focus:ring-2 focus:ring-primary"><i class="fas fa-times"></i></button>
-        <iframe src="https://share.chinmayamission.com/let_the_heart_sing/Tips_and_Notes.pdf#toolbar=0&navpanes=0&scrollbar=0" class="w-full h-[80vh] rounded-b-xl border-0 overflow-hidden" frameborder="0" style="min-height:500px; overflow:hidden;" scrolling="no"></iframe>
-      </div>
-    </div>
+<!-- Modal for Tip & Notes -->
+<div id="tipNotesModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-[100] opacity-0 pointer-events-none transition-opacity duration-300">
+  <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-0 relative animate-popup-slide-in overflow-hidden">
+    <button id="closeTipNotes" class="absolute top-4 right-4 bg-white/80 hover:bg-primary-light text-primary hover:text-white border border-primary/20 rounded-full w-10 h-10 flex items-center justify-center shadow transition-all duration-200 z-10 focus:outline-none focus:ring-2 focus:ring-primary"><i class="fas fa-times"></i></button>
+    <iframe src="https://share.chinmayamission.com/let_the_heart_sing/Tips_and_Notes.pdf#toolbar=0&navpanes=0&scrollbar=0" class="w-full h-[80vh] rounded-b-xl border-0 overflow-hidden" frameborder="0" style="min-height:500px; overflow:hidden;" scrolling="no"></iframe>
+  </div>
+</div>
 
 <script>
     // Sample chapter data with multiple audio sections and different notation images
@@ -1121,21 +1107,11 @@
     function closeContent() {
         mainContent.classList.remove('popup-animate-in');
         mainContent.classList.add('popup-animate-out');
-          if (window.innerWidth < 768) {
-        mainContent.style.overflowY = 'hidden';
-    }
-    
         setTimeout(() => {
-           mainContent.classList.remove('active', 'translate-y-0', 'popup-animate-out');
-        overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
-        document.body.style.overflow = 'auto';
-        closeBtn.classList.add('hidden');
-         if (window.innerWidth < 768) {
-            setTimeout(() => {
-                mainContent.style.overflowY = 'auto';
-            }, 100);
-        }
-         // <-- Hide close button
+            mainContent.classList.remove('active', 'translate-y-0', 'popup-animate-out');
+            overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
+            document.body.style.overflow = 'auto';
+            closeBtn.classList.add('hidden'); // <-- Hide close button
             if (window.scrollY > 200) {
                 scrollToTopBtn.classList.remove('hidden');
                 scrollToTopBtn.classList.add('opacity-100');
@@ -1285,23 +1261,8 @@ tipNotesModal.querySelector('#closeTipNotes').addEventListener('click', () => {
       e.preventDefault();
       e.stopPropagation();
       if (isMobile()) {
-        // iOS Safari: try anchor click with target _blank, fallback to location.href
-        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-          try {
-            var a = document.createElement('a');
-            a.href = pdfUrl;
-            a.target = '_blank';
-            a.rel = 'noopener';
-            a.style.display = 'none';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-          } catch (err) {
-            window.location.href = pdfUrl;
-          }
-        } else {
-          window.open(pdfUrl, '_blank', 'noopener');
-        }
+        // On all mobile devices, just open the PDF in a new tab
+        window.open(pdfUrl, '_blank', 'noopener');
         // Do NOT open modal on mobile
         return;
       }
