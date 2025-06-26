@@ -193,25 +193,6 @@ body, html, * {
     display: block;
   }
 }
-
-@media (max-width: 767px) {
-    #mainContent.active {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      overflow-y: auto !important;
-      z-index: 100 !important;
-      background: #fff !important;
-      border-radius: 1.5rem 1.5rem 0 0 !important;
-      box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
-    }
-    body.popup-open {
-      overflow: hidden !important;
-      touch-action: none;
-    }
-  }
     </style>
 </head>
 <body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
@@ -281,8 +262,8 @@ body, html, * {
         </div>
         
         <!-- Main content area -->
-        <div class="main-content bg-light overflow-y-auto h-[calc(100vh-200px)] fixed top-0 left-0 w-full h-full bg-light z-50 translate-y-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-y-auto pb-8 shadow-[0_-10px_30px_rgba(0,0,0,0.1)] rounded-t-2xl md:relative md:z-0 md:translate-y-0 md:shadow-none md:rounded-none md:h-[calc(100vh-200px)]" id="mainContent">
-            <div class="content-container p-6 opacity-0 translate-y-5 transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] md:pt-8 md:px-8 lg:max-w-4xl lg:mx-auto lg:py-12" id="contentContainer">
+        <div class="main-content bg-light overflow-y-auto h-[calc(100dvh-200px)] fixed top-0 left-0 w-full z-50 translate-y-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] pb-8 shadow-[0_-10px_30px_rgba(0,0,0,0.1)] rounded-t-2xl md:relative md:z-0 md:translate-y-0 md:shadow-none md:rounded-none md:h-[calc(100vh-200px)]" id="mainContent" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;">
+            <div class="content-container p-6 opacity-0 translate-y-5 transition-all duration-400 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] md:pt-8 md:px-8 lg:max-w-4xl lg:mx-auto lg:py-12" id="contentContainer" style="overflow-y:auto; -webkit-overflow-scrolling:touch; max-height:calc(100dvh-220px); touch-action: pan-y;">
                 <!-- Content will be dynamically inserted here -->
             </div>
         </div>
@@ -1106,11 +1087,10 @@ body, html, * {
             mainContent.classList.add('active', 'popup-animate-in');
             mainContent.classList.remove('popup-animate-out');
             mainContent.classList.add('translate-y-0');
-            document.body.classList.add('popup-open'); // Add class to disable background scroll
+            document.body.style.overflow = 'hidden';
             scrollToTopBtn.classList.add('hidden');
             scrollToTopBtn.classList.remove('opacity-100');
             closeBtn.classList.remove('hidden'); // <-- Show close button
-            mainContent.style.height = '';
         }
         // Desktop behavior - scroll to top
         else {
@@ -1130,7 +1110,7 @@ body, html, * {
         setTimeout(() => {
             mainContent.classList.remove('active', 'translate-y-0', 'popup-animate-out');
             overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
-            document.body.classList.remove('popup-open'); // Remove class to re-enable background scroll
+            document.body.style.overflow = 'auto';
             closeBtn.classList.add('hidden'); // <-- Hide close button
             if (window.scrollY > 200) {
                 scrollToTopBtn.classList.remove('hidden');
@@ -1369,8 +1349,6 @@ scrollToTopBtn.addEventListener('click', () => {
       <div class="text-sm text-gray font-medium">Tara Kini<br>Chinthu Param</div>
     </div>
   </div>
-
- 
 
   <!-- Gratitude Line mixed into footer, not separated -->
   <div
