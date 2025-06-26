@@ -124,75 +124,75 @@
         }
 
         /* Hide scrollbars in the PDF modal iframe for all browsers */
-        #tipNotesModal iframe {
-          scrollbar-width: none; /* Firefox */
-        }
-        #tipNotesModal iframe::-webkit-scrollbar {
-          display: none; /* Chrome, Safari, Opera */
-        }
-        /* Remove border radius at the bottom for a cleaner look */
-        #tipNotesModal iframe {
-          border-radius: 0 0 0 0 !important;
-        }
+#tipNotesModal iframe {
+  scrollbar-width: none; /* Firefox */
+}
+#tipNotesModal iframe::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+/* Remove border radius at the bottom for a cleaner look */
+#tipNotesModal iframe {
+  border-radius: 0 0 0 0 !important;
+}
 
-        /* Only show scrollbars for the chapter sidebar, hide everywhere else */
-        body, html, * {
-          scrollbar-width: none !important; /* Firefox */
-        }
-        *::-webkit-scrollbar {
-          display: none !important; /* Chrome, Safari, Opera */
-        }
-        #sidebar, #sidebar * {
-          scrollbar-width: thin !important;
-          scrollbar-color: #d1cbcb #f3f4f6 !important;
-        }
-        #sidebar::-webkit-scrollbar {
-          display: block !important;
-          width: 12px !important;
-          background: #f2eded !important;
-        }
-        #sidebar::-webkit-scrollbar-thumb {
-          background: #f2eded !important;
-          border-radius: 8px !important;
-        }
-        #sidebar::-webkit-scrollbar-thumb:hover {
-          background: #d1cbcb !important;
-        }
+/* Only show scrollbars for the chapter sidebar, hide everywhere else */
+body, html, * {
+  scrollbar-width: none !important; /* Firefox */
+}
+*::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+}
+#sidebar, #sidebar * {
+  scrollbar-width: thin !important;
+  scrollbar-color: #d1cbcb #f3f4f6 !important;
+}
+#sidebar::-webkit-scrollbar {
+  display: block !important;
+  width: 12px !important;
+  background: #f2eded !important;
+}
+#sidebar::-webkit-scrollbar-thumb {
+  background: #f2eded !important;
+  border-radius: 8px !important;
+}
+#sidebar::-webkit-scrollbar-thumb:hover {
+  background: #d1cbcb !important;
+}
 
-        /* Remove scrollbars from the Tip & Notes modal and its iframe for all browsers */
-        #tipNotesModal {
-          overflow: hidden !important;
-        }
-        #tipNotesModal iframe {
-          overflow: hidden !important;
-          scrollbar-width: none !important; /* Firefox */
-        }
-        #tipNotesModal iframe::-webkit-scrollbar {
-          display: none !important; /* Chrome, Safari, Opera */
-        }
+/* Remove scrollbars from the Tip & Notes modal and its iframe for all browsers */
+#tipNotesModal {
+  overflow: hidden !important;
+}
+#tipNotesModal iframe {
+  overflow: hidden !important;
+  scrollbar-width: none !important; /* Firefox */
+}
+#tipNotesModal iframe::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+}
 
-        /* Responsive adjustments for Tip & Notes modal on mobile */
-        @media (max-width: 640px) {
-          #tipNotesModal {
-            align-items: center !important;
-            justify-content: center !important;
-            padding: 0 !important;
-          }
-          #tipNotesModal .bg-white {
-            max-width: 98vw !important;
-            width: 98vw !important;
-            min-width: 0 !important;
-            border-radius: 1.25rem !important;
-            margin: 0 auto !important;
-            left: 0;
-            right: 0;
-          }
-          #tipNotesModal iframe {
-            width: 100% !important;
-            margin: 0 auto !important;
-            display: block;
-          }
-        }
+/* Responsive adjustments for Tip & Notes modal on mobile */
+@media (max-width: 640px) {
+  #tipNotesModal {
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+  }
+  #tipNotesModal .bg-white {
+    max-width: 98vw !important;
+    width: 98vw !important;
+    min-width: 0 !important;
+    border-radius: 1.25rem !important;
+    margin: 0 auto !important;
+    left: 0;
+    right: 0;
+  }
+  #tipNotesModal iframe {
+    width: 100% !important;
+    margin: 0 auto !important;
+    display: block;
+  }
+}
     </style>
 </head>
 <body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
@@ -230,6 +230,19 @@
           </div>
         </div>
       </div>
+      <style>
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 12s linear infinite;
+          will-change: transform;
+        }
+        .marquee-container:hover .animate-marquee {
+          animation-play-state: paused;
+        }
+      </style>
     </div>
 
     <!-- Overlay for mobile -->
@@ -239,6 +252,10 @@
     <div class="main-wrapper flex flex-col md:flex-row">
         <!-- Sidebar with chapters -->
         <div class="sidebar bg-light p-6 border-b border-light-gray md:w-[375px] md:h-[calc(100vh-200px)] md:sticky md:top-0 md:border-r md:border-b-0 md:overflow-y-auto z-30" id="sidebar">
+            <!-- <div class="logo text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6 inline-block">
+                <i>Let the Heart Sing</i>
+            </div> -->
+            
             <div class="chapter-list flex flex-col gap-2" id="chapterList">
                 <!-- Chapters will be inserted here -->
             </div>
@@ -474,10 +491,10 @@
             { 
             id: 5,
             number: "05",
-            title: "Where did Shri Krishna Go? A Gopi's Adventure!", 
+            title: "Where did Shri Krishna Go? A Gopi’s Adventure!", 
             description: "Nanda-nandana angana more ayo ri sakhi",
             content: {
-                title: "Where did Shri Krishna Go? A Gopi's Adventure!",
+                title: "Where did Shri Krishna Go? A Gopi’s Adventure!",
                 subtitle: "Nanda-nandana angana more ayo ri sakhi",
                 text: "Harmony adds depth and emotion to music. In this chapter, you'll learn about chords, chord progressions, and how they support melodies. We'll cover triads, seventh chords, and basic harmonic functions.",
                 audioSections: [
@@ -523,10 +540,10 @@
          { 
             id: 6,
             number: "06",
-            title: "Seeking the Devi's Love and Grace", 
+            title: "Seeking the Devi’s Love and Grace", 
             description: "Jagata janani jagata kalyani",
             content: {
-                title: "Seeking the Devi's Love and Grace",
+                title: "Seeking the Devi’s Love and Grace",
                 subtitle: "Jagata janani jagata kalyani",
                 text: "Harmony adds depth and emotion to music. In this chapter, you'll learn about chords, chord progressions, and how they support melodies. We'll cover triads, seventh chords, and basic harmonic functions.",
                 audioSections: [
@@ -1020,7 +1037,6 @@
     const mainContent = document.getElementById('mainContent');
     const overlay = document.getElementById('overlay');
     const closeBtn = document.getElementById('closeContent');
-    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
     
     // Generate chapter list
     chapters.forEach(chapter => {
@@ -1134,7 +1150,7 @@
             const audioSectionsHTML = chapter.content.audioSections.map(section => `
                 <div class="media-container bg-light-gray p-5 rounded-xl mb-6 border border-light-gray">
                     <h3 class="audio-section-title text-lg font-medium text-dark mb-2 flex items-center">
-                        <img src="${section.image}" alt="Music" class="h-4 w-4 object-contain mr-2 inline-block align-middle" />
+                        <img src="${section.image }" alt="Music" class="h-4 w-4 object-contain mr-2 inline-block align-middle" />
                         ${section.title}
                     </h3>
                     
@@ -1196,55 +1212,98 @@
                 }, 10);
             }
             // Add event listeners for close button and overlay
-            closeBtn.addEventListener('click', closeContent);
+            const closeBtn = document.getElementById('closeContent');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeContent);
+            }
+            
             overlay.addEventListener('click', closeContent);
         }, window.innerWidth >= 768 ? 250 : 200);
     }
 
-    // Tip & Notes modal functionality
-    const tipNotesBtn = document.getElementById('tipNotesBtn');
-    const tipNotesModal = document.getElementById('tipNotesModal');
-    const closeTipNotes = document.getElementById('closeTipNotes');
-    
-    if (tipNotesBtn && tipNotesModal) {
-        tipNotesBtn.addEventListener('click', () => {
-            if (window.innerWidth >= 768) {
-                tipNotesModal.classList.remove('opacity-0', 'pointer-events-none');
-                tipNotesModal.classList.add('opacity-100');
-            } else {
-                // On mobile, open PDF in new tab
-                window.open('https://share.chinmayamission.com/let_the_heart_sing/Tips_and_Notes.pdf#toolbar=0&navpanes=0&scrollbar=0', '_blank');
-            }
-        });
-        
-        closeTipNotes.addEventListener('click', () => {
-            tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
-            tipNotesModal.classList.remove('opacity-100');
-        });
-        
-        tipNotesModal.addEventListener('click', (e) => {
-            if (e.target === tipNotesModal) {
-                tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
-                tipNotesModal.classList.remove('opacity-100');
-            }
-        });
+    // Show modal on button click (desktop only)
+if (typeof tipNotesBtn !== 'undefined' && typeof tipNotesModal !== 'undefined') {
+  tipNotesBtn.addEventListener('click', () => {
+    if (window.innerWidth >= 768) {
+      tipNotesModal.classList.remove('opacity-0', 'pointer-events-none');
+      tipNotesModal.classList.add('opacity-100');
     }
+  });
+}
 
-    // Scroll to Top Button logic
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 200) {
-            scrollToTopBtn.classList.remove('hidden');
-            scrollToTopBtn.classList.add('opacity-100');
-        } else {
-            scrollToTopBtn.classList.add('hidden');
-            scrollToTopBtn.classList.remove('opacity-100');
-        }
+// Hide modal on close
+tipNotesModal.querySelector('#closeTipNotes').addEventListener('click', () => {
+   tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
+   tipNotesModal.classList.remove('opacity-100');
+ });
+
+ // Hide modal when clicking outside the modal content (desktop only)
+ tipNotesModal.addEventListener('click', (e) => {
+  if (window.innerWidth >= 768 && e.target === tipNotesModal) {
+    tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
+    tipNotesModal.classList.remove('opacity-100');
+  }
+});
+
+(function() {
+  var tipBtn = document.getElementById('tipNotesBtn');
+  var tipModal = document.getElementById('tipNotesModal');
+  var closeTip = document.getElementById('closeTipNotes');
+  var pdfUrl = 'https://share.chinmayamission.com/let_the_heart_sing/Tips_and_Notes.pdf#toolbar=0&navpanes=0&scrollbar=0';
+
+  function isMobile() {
+    // Use userAgent to detect Android or small width
+    return /Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+  }
+
+  if (tipBtn) {
+    tipBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (isMobile()) {
+        window.open(pdfUrl, '_blank', 'noopener');
+        // Do NOT open modal on mobile
+        return;
+      }
+      // Only open modal on desktop
+      if (window.innerWidth >= 768 && tipModal) {
+        tipModal.classList.remove('opacity-0', 'pointer-events-none');
+        tipModal.classList.add('opacity-100');
+      }
     });
-    
-    scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  if (closeTip && tipModal) {
+    closeTip.addEventListener('click', function() {
+      tipModal.classList.add('opacity-0', 'pointer-events-none');
+      tipModal.classList.remove('opacity-100');
     });
+  }
+})();
 </script>
+<!-- Scroll to Top Button -->
+<button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 z-50 bg-gradient-to-br from-primary via-accent to-secondary text-white rounded-full w-14 h-14 flex items-center justify-center shadow-xl transition-all duration-300 opacity-0 hover:scale-110 hover:shadow-2xl focus:outline-none border-4 border-white/60 backdrop-blur-md ring-2 ring-accent/30">
+    <span class="sr-only">Scroll to top</span>
+    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+    </svg>
+</button>
+<script>
+    // Scroll to Top Button logic
+const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 200) {
+        scrollToTopBtn.classList.remove('hidden');
+        scrollToTopBtn.classList.add('opacity-100');
+    } else {
+        scrollToTopBtn.classList.add('hidden');
+        scrollToTopBtn.classList.remove('opacity-100');
+    }
+});
+scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
 
 <footer class="w-full bg-white/90 pt-6 pb-3 relative overflow-hidden">
   <div class="relative z-10 container mx-auto flex flex-col md:flex-row items-center justify-center gap-8 px-4">
