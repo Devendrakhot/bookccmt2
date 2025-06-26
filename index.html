@@ -1087,10 +1087,17 @@ body, html, * {
             mainContent.classList.add('active', 'popup-animate-in');
             mainContent.classList.remove('popup-animate-out');
             mainContent.classList.add('translate-y-0');
-            document.body.style.overflow = 'hidden';
+            // iOS fix: do not set body overflow hidden on iOS
+            if (!/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
             scrollToTopBtn.classList.add('hidden');
             scrollToTopBtn.classList.remove('opacity-100');
             closeBtn.classList.remove('hidden'); // <-- Show close button
+            // Set mainContent to 100vh for iOS full screen scroll
+            mainContent.style.height = '100vh';
         }
         // Desktop behavior - scroll to top
         else {
