@@ -193,6 +193,25 @@ body, html, * {
     display: block;
   }
 }
+
+@media (max-width: 767px) {
+    #mainContent.active {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      overflow-y: auto !important;
+      z-index: 100 !important;
+      background: #fff !important;
+      border-radius: 1.5rem 1.5rem 0 0 !important;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+    }
+    body.popup-open {
+      overflow: hidden !important;
+      touch-action: none;
+    }
+  }
     </style>
 </head>
 <body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
@@ -1087,17 +1106,11 @@ body, html, * {
             mainContent.classList.add('active', 'popup-animate-in');
             mainContent.classList.remove('popup-animate-out');
             mainContent.classList.add('translate-y-0');
-            // iOS fix: do not set body overflow hidden on iOS
-            if (!/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
+            document.body.classList.add('popup-open'); // Add class to disable background scroll
             scrollToTopBtn.classList.add('hidden');
             scrollToTopBtn.classList.remove('opacity-100');
             closeBtn.classList.remove('hidden'); // <-- Show close button
-            // Set mainContent to 100vh for iOS full screen scroll
-            mainContent.style.height = '100vh';
+            mainContent.style.height = '';
         }
         // Desktop behavior - scroll to top
         else {
@@ -1117,7 +1130,7 @@ body, html, * {
         setTimeout(() => {
             mainContent.classList.remove('active', 'translate-y-0', 'popup-animate-out');
             overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
-            document.body.style.overflow = 'auto';
+            document.body.classList.remove('popup-open'); // Remove class to re-enable background scroll
             closeBtn.classList.add('hidden'); // <-- Hide close button
             if (window.scrollY > 200) {
                 scrollToTopBtn.classList.remove('hidden');
@@ -1356,6 +1369,8 @@ scrollToTopBtn.addEventListener('click', () => {
       <div class="text-sm text-gray font-medium">Tara Kini<br>Chinthu Param</div>
     </div>
   </div>
+
+ 
 
   <!-- Gratitude Line mixed into footer, not separated -->
   <div
