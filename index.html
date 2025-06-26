@@ -470,7 +470,7 @@ body, html, * {
                     {
                         text: "Musical Activity-1",
                         icon: "music",
-                        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
+                        url: "https://share.chinmayamission.com/let_the_heart_sing/04_Discovering_Mahadeva_The_Forever_One/16_Janaki_Jivana.mp3",
                         type: "accent"
                     },
                     {
@@ -1221,25 +1221,80 @@ body, html, * {
         }, window.innerWidth >= 768 ? 250 : 200);
     }
 
-    // Show modal on button click
- tipNotesBtn.addEventListener('click', () => {
-   tipNotesModal.classList.remove('opacity-0', 'pointer-events-none');
-   tipNotesModal.classList.add('opacity-100');
- });
+    // Show modal on button click (desktop only)
+if (typeof tipNotesBtn !== 'undefined' && typeof tipNotesModal !== 'undefined') {
+  tipNotesBtn.addEventListener('click', () => {
+    if (window.innerWidth >= 768) {
+      tipNotesModal.classList.remove('opacity-0', 'pointer-events-none');
+      tipNotesModal.classList.add('opacity-100');
+    }
+  });
+}
 
- // Hide modal on close
- tipNotesModal.querySelector('#closeTipNotes').addEventListener('click', () => {
+// Hide modal on close
+tipNotesModal.querySelector('#closeTipNotes').addEventListener('click', () => {
    tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
    tipNotesModal.classList.remove('opacity-100');
  });
 
- // Hide modal when clicking outside the modal content
+ // Hide modal when clicking outside the modal content (desktop only)
  tipNotesModal.addEventListener('click', (e) => {
-   if (e.target === tipNotesModal) {
-     tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
-     tipNotesModal.classList.remove('opacity-100');
-   }
- });
+  if (window.innerWidth >= 768 && e.target === tipNotesModal) {
+    tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
+    tipNotesModal.classList.remove('opacity-100');
+  }
+});
+
+(function() {
+  var tipBtn = document.getElementById('tipNotesBtn');
+  var tipModal = document.getElementById('tipNotesModal');
+  var closeTip = document.getElementById('closeTipNotes');
+  var pdfUrl = 'https://share.chinmayamission.com/let_the_heart_sing/Tips_and_Notes.pdf#toolbar=0&navpanes=0&scrollbar=0';
+
+  function isMobile() {
+    // iOS fix: use userAgent to detect iPhone/iPad/iPod or small width
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+  }
+
+  if (tipBtn) {
+    tipBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (isMobile()) {
+        // iOS Safari: try anchor click with target _blank, fallback to location.href
+        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+          try {
+            var a = document.createElement('a');
+            a.href = pdfUrl;
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          } catch (err) {
+            window.location.href = pdfUrl;
+          }
+        } else {
+          window.open(pdfUrl, '_blank', 'noopener');
+        }
+        // Do NOT open modal on mobile
+        return;
+      }
+      // Only open modal on desktop
+      if (window.innerWidth >= 768 && tipModal) {
+        tipModal.classList.remove('opacity-0', 'pointer-events-none');
+        tipModal.classList.add('opacity-100');
+      }
+    });
+  }
+  if (closeTip && tipModal) {
+    closeTip.addEventListener('click', function() {
+      tipModal.classList.add('opacity-0', 'pointer-events-none');
+      tipModal.classList.remove('opacity-100');
+    });
+  }
+})();
 </script>
 <!-- Scroll to Top Button -->
 <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 z-50 bg-gradient-to-br from-primary via-accent to-secondary text-white rounded-full w-14 h-14 flex items-center justify-center shadow-xl transition-all duration-300 opacity-0 hover:scale-110 hover:shadow-2xl focus:outline-none border-4 border-white/60 backdrop-blur-md ring-2 ring-accent/30">
