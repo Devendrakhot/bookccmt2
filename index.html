@@ -194,15 +194,20 @@ body, html, * {
   }
 }
 
-/* Make popup scrollable on iOS */
-#mainContent.active {
-  /* For mobile popup */
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important;
-  touch-action: auto !important;
-  /* Use 100dvh for iOS 16+ or fallback to 100vh */
-  height: 100dvh !important;
-  max-height: 100dvh !important;
+/* Make chapter popup scrollable on iOS mobile */
+@media (max-width: 767px) {
+  #mainContent.active {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: auto !important;
+    z-index: 100;
+  }
 }
     </style>
 </head>
@@ -1098,14 +1103,9 @@ body, html, * {
             mainContent.classList.add('active', 'popup-animate-in');
             mainContent.classList.remove('popup-animate-out');
             mainContent.classList.add('translate-y-0');
-            // iOS-friendly workaround
-            if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                // Don't block body scroll, just rely on overlay
-                document.body.style.position = 'relative';
-                document.body.style.overflow = '';
-            } else {
-                document.body.style.overflow = 'hidden';
-            }
+            document.body.style.overflow = 'hidden';
+            scrollToTopBtn.classList.add('hidden');
+            scrollToTopBtn.classList.remove('opacity-100');
             closeBtn.classList.remove('hidden'); // <-- Show close button
         }
         // Desktop behavior - scroll to top
