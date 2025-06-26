@@ -30,55 +30,117 @@
     </script>
     <style>
         @keyframes float {
-            0%, 100% { transform: translateY(0);}
-            50% { transform: translateY(-15px);}
-        }
-        .music-notes { animation: float 5s infinite ease-in-out; }
-
-        @keyframes popup-slide-in {
-            0% { transform: translateY(100%); opacity: 0.5;}
-            80% { transform: translateY(-10px); opacity: 1;}
-            100% { transform: translateY(0); opacity: 1;}
-        }
-        @keyframes popup-slide-out {
-            0% { transform: translateY(0); opacity: 1;}
-            100% { transform: translateY(100%); opacity: 0;}
-        }
-        .popup-animate-in { animation: popup-slide-in 0.7s cubic-bezier(0.25,1,0.5,1) both;}
-        .popup-animate-out { animation: popup-slide-out 0.5s cubic-bezier(0.25,1,0.5,1) both;}
-
-        #scrollToTopBtn {
-            background: linear-gradient(135deg, rgba(79,70,229,0.85) 0%, rgba(236,72,153,0.85) 100%);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-            backdrop-filter: blur(10px);
-            border: 1.5px solid rgba(255,255,255,0.25);
-            outline: none;
-            transition: opacity 0.3s, transform 0.2s, box-shadow 0.2s;
-            opacity: 0;
-            pointer-events: none;
-        }
-        #scrollToTopBtn.opacity-100 {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        #scrollToTopBtn:hover, #scrollToTopBtn:focus {
-            transform: scale(1.08) translateY(-4px);
-            box-shadow: 0 12px 40px 0 rgba(79,70,229,0.25), 0 2px 8px 0 rgba(236,72,153,0.12);
-            border-color: rgba(236,72,153,0.35);
-        }
-        #scrollToTopBtn svg, #scrollToTopBtn i {
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.10));
-        }
-        @media (max-width: 768px) {
-            #scrollToTopBtn {
-                bottom: 4vw;
-                right: 4vw;
-                width: 3.2rem;
-                height: 3.2rem;
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
             }
         }
+        
+        .music-notes {
+            animation: float 5s infinite ease-in-out;
+        }
+        
+        /* Add this to the <style> section for popup animation */
+@keyframes popup-slide-in {
+  0% {
+    transform: translateY(100%);
+    opacity: 0.5;
+  }
+  80% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
-        /* Sidebar scrollbar only */
+@keyframes popup-slide-out {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* Add popup-animate-in and popup-animate-out classes for JS toggling */
+.popup-animate-in {
+  animation: popup-slide-in 0.7s cubic-bezier(0.25,1,0.5,1) both;
+}
+.popup-animate-out {
+  animation: popup-slide-out 0.5s cubic-bezier(0.25,1,0.5,1) both;
+}
+
+/* Modern glassmorphism/gradient style for scroll-to-top button */
+#scrollToTopBtn {
+    background: linear-gradient(135deg, rgba(79,70,229,0.85) 0%, rgba(236,72,153,0.85) 100%);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    outline: none;
+    transition: opacity 0.3s, transform 0.2s, box-shadow 0.2s;
+    opacity: 0;
+    pointer-events: none;
+}
+#scrollToTopBtn.opacity-100 {
+    opacity: 1;
+    pointer-events: auto;
+}
+#scrollToTopBtn:hover, #scrollToTopBtn:focus {
+    transform: scale(1.08) translateY(-4px);
+    box-shadow: 0 12px 40px 0 rgba(79,70,229,0.25), 0 2px 8px 0 rgba(236,72,153,0.12);
+    border-color: rgba(236,72,153,0.35);
+}
+#scrollToTopBtn svg, #scrollToTopBtn i {
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.10));
+}
+@media (max-width: 768px) {
+    #scrollToTopBtn {
+        bottom: 4vw;
+        right: 4vw;
+        width: 3.2rem;
+        height: 3.2rem;
+    }
+}
+
+/* Custom scrollbar for both desktop and mobile */
+::-webkit-scrollbar {
+  width: 12px;
+  background: #f2eded;
+}
+::-webkit-scrollbar-thumb {
+  background: #f2eded;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f2eded;
+}
+
+/* Firefox */
+html {
+  scrollbar-color: #d1cbcb #f3f4f6;
+  scrollbar-width: thin;
+}
+
+/* Remove custom scrollbar globally */
+        ::-webkit-scrollbar,
+        ::-webkit-scrollbar-thumb,
+        ::-webkit-scrollbar-thumb:hover {
+            all: unset;
+        }
+        html {
+            scrollbar-width: none !important;
+            scrollbar-color: auto !important;
+        }
+
+        /* Enable custom scrollbar only for sidebar (chapters) */
         #sidebar {
             scrollbar-width: thin;
             scrollbar-color: #d1cbcb #f3f4f6;
@@ -92,107 +154,8 @@
             border-radius: 8px;
         }
         #sidebar::-webkit-scrollbar-thumb:hover {
-            background: #d1cbcb;
+            background: #f2eded;
         }
-
-        #closeContent {
-            background: rgba(255,255,255,0.45) !important;
-            backdrop-filter: blur(8px);
-            border: 1.5px solid rgba(0,0,0,0.08);
-            box-shadow: 0 4px 24px 0 rgba(31, 38, 135, 0.10);
-            transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
-        }
-        #closeContent:hover, #closeContent:focus {
-            background: rgba(255,255,255,0.85) !important;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-        }
-        #closeContent i {
-            color: #111827;
-            opacity: 0.8;
-        }
-        /* Marquee animation */
-        @keyframes marquee {
-            0% { transform: translateX(0);}
-            100% { transform: translateX(-50%);}
-        }
-        .animate-marquee {
-            animation: marquee 12s linear infinite;
-            will-change: transform;
-        }
-        .marquee-container:hover .animate-marquee {
-            animation-play-state: paused;
-        }
-
-        /* Hide scrollbars in the PDF modal iframe for all browsers */
-#tipNotesModal iframe {
-  scrollbar-width: none; /* Firefox */
-}
-#tipNotesModal iframe::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-/* Remove border radius at the bottom for a cleaner look */
-#tipNotesModal iframe {
-  border-radius: 0 0 0 0 !important;
-}
-
-/* Only show scrollbars for the chapter sidebar, hide everywhere else */
-body, html, * {
-  scrollbar-width: none !important; /* Firefox */
-}
-*::-webkit-scrollbar {
-  display: none !important; /* Chrome, Safari, Opera */
-}
-#sidebar, #sidebar * {
-  scrollbar-width: thin !important;
-  scrollbar-color: #d1cbcb #f3f4f6 !important;
-}
-#sidebar::-webkit-scrollbar {
-  display: block !important;
-  width: 12px !important;
-  background: #f2eded !important;
-}
-#sidebar::-webkit-scrollbar-thumb {
-  background: #f2eded !important;
-  border-radius: 8px !important;
-}
-#sidebar::-webkit-scrollbar-thumb:hover {
-  background: #d1cbcb !important;
-}
-
-/* Remove scrollbars from the Tip & Notes modal and its iframe for all browsers */
-#tipNotesModal {
-  overflow: hidden !important;
-}
-#tipNotesModal iframe {
-  overflow: hidden !important;
-  scrollbar-width: none !important; /* Firefox */
-}
-#tipNotesModal iframe::-webkit-scrollbar {
-  display: none !important; /* Chrome, Safari, Opera */
-}
-
-/* Responsive adjustments for Tip & Notes modal on mobile */
-@media (max-width: 640px) {
-  #tipNotesModal {
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 0 !important;
-  }
-  #tipNotesModal .bg-white {
-    max-width: 98vw !important;
-    width: 98vw !important;
-    min-width: 0 !important;
-    border-radius: 1.25rem !important;
-    margin: 0 auto !important;
-    left: 0;
-    right: 0;
-  }
-  #tipNotesModal iframe {
-    width: 100% !important;
-    margin: 0 auto !important;
-    display: block;
-  }
-}
     </style>
 </head>
 <body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
@@ -214,36 +177,32 @@ body, html, * {
 
     <!-- Modern Info Bar: Discover the joy.-->
     <div class="w-full bg-white/80 backdrop-blur-md shadow-sm border-b border-light-gray z-30 relative overflow-hidden">
-      <div class="flex items-center">
-        <button id="tipNotesBtn" class="ml-4 my-2 bg-primary text-white border border-primary px-6 py-1.5 rounded-full shadow-sm hover:text-white transition font-medium text-xs focus:outline-none focus:ring-2 focus:ring-primary/30 min-w-fit w-auto">
-          Tip & Notes
-        </button>
-        <div class="marquee-container relative w-full overflow-hidden whitespace-nowrap py-3 px-4">
-          <div class="marquee-track inline-block animate-marquee hover:[animation-play-state:paused]">
-            <span class="text-sm md:text-base font-medium text-dark">
-              Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy  <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/" target="_blank">here</a></span>.
-            </span>
-            <span class="mx-24"></span>
-            <span class="text-sm md:text-base font-medium text-dark">
-              Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy here: <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/">here</a></span>.
-            </span>
-          </div>
-        </div>
-      </div>
-      <style>
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 12s linear infinite;
-          will-change: transform;
-        }
-        .marquee-container:hover .animate-marquee {
-          animation-play-state: paused;
-        }
-      </style>
+  <div class="marquee-container relative w-full overflow-hidden whitespace-nowrap py-3 px-4">
+    <div class="marquee-track inline-block animate-marquee hover:[animation-play-state:paused]">
+      <span class="text-sm md:text-base font-medium text-dark">
+        Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy  <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/">here</a></span>.
+      </span>
+      <span class="mx-24"></span>
+      
+      <span class="text-sm md:text-base font-medium text-dark">
+     Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy here: <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/">here</a></span>.
+      </span>
     </div>
+  </div>
+  <style>
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      animation: marquee 12s linear infinite;
+      will-change: transform;
+    }
+    .marquee-container:hover .animate-marquee {
+      animation-play-state: paused;
+    }
+  </style>
+</div>
 
     <!-- Overlay for mobile -->
     <div class="overlay fixed top-0 left-0 w-full h-full bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300" id="overlay"></div>
@@ -267,20 +226,7 @@ body, html, * {
                 <!-- Content will be dynamically inserted here -->
             </div>
         </div>
-    </div> <!-- End of .main-wrapper -->
-
-<!-- Global Close Button for mobile popup -->
-<button id="closeContent" class="hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-light-gray flex items-center justify-center cursor-pointer z-[100] border-none text-dark text-2xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-transform active:scale-90 md:hidden">
-    <i class="fas fa-times"></i>
-</button>
-
-<!-- Modal for Tip & Notes -->
-<div id="tipNotesModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-[100] opacity-0 pointer-events-none transition-opacity duration-300">
-  <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-0 relative animate-popup-slide-in overflow-hidden">
-    <button id="closeTipNotes" class="absolute top-4 right-4 bg-white/80 hover:bg-primary-light text-primary hover:text-white border border-primary/20 rounded-full w-10 h-10 flex items-center justify-center shadow transition-all duration-200 z-10 focus:outline-none focus:ring-2 focus:ring-primary"><i class="fas fa-times"></i></button>
-    <iframe src="https://share.chinmayamission.com/let_the_heart_sing/Tips_and_Notes.pdf#toolbar=0&navpanes=0&scrollbar=0" class="w-full h-[80vh] rounded-b-xl border-0 overflow-hidden" frameborder="0" style="min-height:500px; overflow:hidden;" scrolling="no"></iframe>
-  </div>
-</div>
+    </div>
 
 <script>
     // Sample chapter data with multiple audio sections and different notation images
@@ -298,26 +244,26 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/01_Finding_Shri_Rama/01_Ram_ko_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/01_Finding_Shri_Rama/01_Ram_ko_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Rama ko jisane bhi pa liya",
                         description: "Exploring the seven basic notes",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/01_Finding_Shri_Rama/01_Ram_ko.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                   
                     },
                     {
                         title: "Karaoke - Rama ko jisane bhi pa liya",
                         description: "Understanding the concept of tonic and dominant",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/01_Finding_Shri_Rama/01_Ram_ko_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
@@ -332,8 +278,8 @@ body, html, * {
                      {
     text: "Notation",
     icon: "file-pdf",
-    url: "https://share.chinmayamission.com/let_the_heart_sing/01_Finding_Shri_Rama/1_Ram_Ko_Jisne_Bhi_Pa_Liya.pdf",
-    type: "primary"
+    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
+    type: "primary"
 }
                 ],
                      }
@@ -351,25 +297,25 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "Understanding 4/4, 3/4 and other time signatures",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/02_Invoking_Bajarangbali_Hanuman_Strength_Incarnate/02_Ojavi_Tejasvi_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Creating off-beat rhythms",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/02_Invoking_Bajarangbali_Hanuman_Strength_Incarnate/02_Ojavi_Tejasvi_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
-                        title: "Song - Ojasvi tejasvi yashasvi Hanuman",
+                        title: "Song - Ojasvi Tejasvi",
                         description: "Exploring rhythmic subdivisions",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/02_Invoking_Bajarangbali_Hanuman_Strength_Incarnate/02_Ojavi_Tejasvi.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Ojasvi tejasvi yashasvi Hanuman",
                         description: "Understanding polyrhythms",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/02_Invoking_Bajarangbali_Hanuman_Strength_Incarnate/02_Ojavi_Tejasvi_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                    
@@ -378,7 +324,7 @@ body, html, * {
                     {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/02_Invoking_Bajarangbali_Hanuman_Strength_Incarnate/2_Ojasvi_Tejasvi_Yashasvi_Hanuman.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -397,25 +343,25 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "The emotional impact of scales",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/03_Invoking_Bhakta_Hanuman_Loyal_Devotee/03_Jaham_jaham_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Creating musical sentences",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/03_Invoking_Bhakta_Hanuman_Loyal_Devotee/03_Jaham_jaham_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
-                        title: "Song - Jaha jaha Raghunatha sankirtana",
+                        title: "Song - Jaha Jaha Raghunatha",
                         description: "Exploring melodic motifs",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/03_Invoking_Bhakta_Hanuman_Loyal_Devotee/03_Jaham_jaham.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Jaha jaha Raghunatha sankirtana",
                         description: "Understanding melodic contour",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/03_Invoking_Bhakta_Hanuman_Loyal_Devotee/03_Jaham_jaham_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
@@ -423,7 +369,7 @@ body, html, * {
                     {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/03_Invoking_Bhakta_Hanuman_Loyal_Devotee/3_Jahan_Jahan_Raghunath_Sankirtan.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -442,25 +388,25 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "Major, minor, diminished and augmented",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/04_Discovering_Mahadeva_The_Forever_One/04_Adideva_Mahadeva_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Common patterns in Western music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/04_Discovering_Mahadeva_The_Forever_One/04_Adideva_Mahadeva_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
-                        title: "Song - Adideva mahadeva he dayanidhe",
+                        title: "Song - Adi deva Mahadeva",
                         description: "Understanding chord progressions",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/04_Discovering_Mahadeva_The_Forever_One/04_Adideva_Mahadeva.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
-                        title: "Karaoke - Adideva mahadeva he dayanidhe",
+                        title: "Karaoke - Adi Deva Mahadeva",
                         description: "Exploring harmonic rhythm",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/04_Discovering_Mahadeva_The_Forever_One/04_Adideva_Mahadeva_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                     
@@ -470,7 +416,7 @@ body, html, * {
                     {
                         text: "Musical Activity-1",
                         icon: "music",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/04_Discovering_Mahadeva_The_Forever_One/16_Janaki_Jivana.mp3",
+                        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
                         type: "accent"
                     },
                     {
@@ -482,7 +428,7 @@ body, html, * {
                     {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/04_Discovering_Mahadeva_The_Forever_One/4_Adideva_Mahadeva.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -501,26 +447,26 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "Major, minor, diminished and augmented",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/05_Where_did_Shri_Krishna_Go_A_Gopis_Adventure/05_Nandan_Nandana_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Common patterns in Western music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/05_Where_did_Shri_Krishna_Go_A_Gopis_Adventure/05_Nandan_Nandana_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
 
                     },
                      {
                         title: "Song - Nanda-nandana angana more ayo ri sakhi",
                         description: "Major, minor, diminished and augmented",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/05_Where_did_Shri_Krishna_Go_A_Gopis_Adventure/05_Nandan_Nandana.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke- Nanda-nandana angana more ayo ri sakhi",
                         description: "Common patterns in Western music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/05_Where_did_Shri_Krishna_Go_A_Gopis_Adventure/05_Nandan_Nandana_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     },
                     
@@ -531,7 +477,7 @@ body, html, * {
                     {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/05_Where_did_Shri_Krishna_Go_A_Gopis_Adventure/5_Nanda_Nandana_Angan_More_Ayo_Ri_Sakhi.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -550,25 +496,25 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "Major, minor, diminished and augmented",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/06_Seeking_the_Devis_Love_and_Grace/06_Jagata_Janani_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Common patterns in Western music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/06_Seeking_the_Devis_Love_and_Grace/06_Jagata_Janani_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song -Jagata janani jagata kalyani",
                         description: "Major, minor, diminished and augmented",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/06_Seeking_the_Devis_Love_and_Grace/06_Jagata_Janani.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke- Jagata janani jagata kalyani",
                         description: "Common patterns in Western music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/06_Seeking_the_Devis_Love_and_Grace/06_Jagata_Janani_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     },
                     
@@ -579,7 +525,7 @@ body, html, * {
                     {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/06_Seeking_the_Devis_Love_and_Grace/6_Jagat_Janani.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -598,25 +544,25 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/07_Showers_of_Devotion/07_Gate_Raho_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/07_Showers_of_Devotion/07_Gate_Raho_Pakad.mp3", 
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", 
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Gate raho mana Ganesha ke guna",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/07_Showers_of_Devotion/07_Gate_Raho.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Gate raho mana Ganesha ke guna",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/07_Showers_of_Devotion/07_Gate_Raho_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
@@ -631,7 +577,7 @@ body, html, * {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/07_Showers_of_Devotion/7_Gaate_Raho.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -650,25 +596,25 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/08_My_Guru_My_True_North/08_Gurudeva_Tava_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/08_My_Guru_My_True_North/08_Gurudeva_Tava_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Gurudeva tava mahaniya kripa",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/08_My_Guru_My_True_North/08_Gurudeva_Tava.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Gurudeva tava mahaniya kripa",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/08_My_Guru_My_True_North/08_Gurudeva_Tava_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
@@ -678,7 +624,7 @@ body, html, * {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/08_My_Guru_My_True_North/8_Gurudeva_Tava_Mahaneeya_Kripa.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -697,25 +643,25 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/09_A_Journey_to_Your_Own_Heart/09_Jaya_Jaya_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/09_A_Journey_to_Your_Own_Heart/09_Jaya_Jaya_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Jaya jaya guna sagara",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/09_A_Journey_to_Your_Own_Heart/09_Jaya_Jaya.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Jaya jaya guna sagara",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/09_A_Journey_to_Your_Own_Heart/09_Jaya_Jaya_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
@@ -730,7 +676,7 @@ body, html, * {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/09_A_Journey_to_Your_Own_Heart/9_Jaya_Jaya_Guna_Sagara.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -749,32 +695,32 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/10_Walking_in_the_Footsteps_of_the_Warkaris/10_Jaya_Jaya_Viththala_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/10_Walking_in_the_Footsteps_of_the_Warkaris/10_Jaya_Jaya_Viththala_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Jaya jaya Vittala Rakhumai Vittala",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/10_Walking_in_the_Footsteps_of_the_Warkaris/10_Jaya_Jaya_Viththala.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Jaya jaya Vittala Rakhumai Vittala",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/10_Walking_in_the_Footsteps_of_the_Warkaris/10_Jaya_Jaya_Viththala_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
                 buttons: [
                    
                     {
-                        text: "Musical Activity-4",
+                        text: "Musical Activity-1",
                         icon: "video",
                         url: "https://youtu.be/qSw6Dk5FwvY?si=G3dmCE4445HzliYv   ",
                         type: "accent"
@@ -782,7 +728,7 @@ body, html, * {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/10_Walking_in_the_Footsteps_of_the_Warkaris/10_Jaya_Jaya_Vitthala_Rakhumai_Vitthala.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -801,25 +747,25 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/11_Forever_in_Gratitude/11_Dhanya_Dhanya_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/11_Forever_in_Gratitude/11_Dhanya_Dhanya_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Dhanya dhanya ati dhanya main",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/11_Forever_in_Gratitude/11_Dhanya_Dhanya.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Dhanya dhanya ati dhanya main",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/11_Forever_in_Gratitude/11_Dhanya_Dhanya_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
@@ -829,7 +775,7 @@ body, html, * {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/11_Forever_in_Gratitude/11_Dhanya_Dhanya_Ati_Dhanya.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -848,41 +794,34 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/12_Vision_of_Life/12_Pranom_Se_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/12_Vision_of_Life/12_Pranom_Se_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Prano se pyaare",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/12_Vision_of_Life/12_Pranom_Se.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Prano se pyaare",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/12_Vision_of_Life/12_Pranom_Se_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
-                    },
-                     {
-                        title: "Musical Rendition - Nama Ramayan",
-                        description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/12_Vision_of_Life/Nama_Ramayana.mp3",
-                        image: "./let_the_heart_sing/4_song.webp"
                     }
                 ],
                 buttons: [
                    
-                    
-                       {
-                        text: "Notation",
-                        icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/12_Vision_of_Life/12_Prano_Se_Pyaare.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                     {
+                        text: "Nama Ramayan",
+                        icon: "music",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -901,25 +840,25 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/13_A_Musical_Note/13_Tvam_Hi_No_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/13_A_Musical_Note/13_Tvam_Hi_No_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Tvam hi no neta",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/13_A_Musical_Note/13_Tvam_Hi_No.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Tvam hi no neta",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/13_A_Musical_Note/13_Tvam_Hi_No_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
@@ -929,7 +868,7 @@ body, html, * {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/13_A_Musical_Note/13_Twam_Hi_No_Neta.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -938,35 +877,35 @@ body, html, * {
           { 
             id: 14,
             number: "14",
-            title: "One with You, One with All", 
+            title: "One with YOu, One with All", 
             description: "Apa ki mana mein lagi hain lagan jab se heh prabhu",
             content: {
-                title: "One with You, One with All",
+                title: "One with YOu, One with All",
                 subtitle: "Apa ki mana mein lagi hain lagan jab se heh prabhu",
                 text: "In this chapter, we'll explore the essential elements that form the foundation of all music. You'll learn about pitch, rhythm, scales, and intervals - the fundamental components that composers use to create music across all genres and cultures.",
                 audioSections: [
                     {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/14_One_with_You_One_with_All/14_Aap_ki_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/14_One_with_You_One_with_All/14_Aap_ki_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Apa ki mana mein lagi hain lagan jab se heh prabhu",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/14_One_with_You_One_with_All/14_Aap_ki.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Apa ki mana mein lagi hain lagan jab se heh prabhu",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/14_One_with_You_One_with_All/14_Aap_ki_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
@@ -976,7 +915,7 @@ body, html, * {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/14_One_with_You_One_with_All/14_Aap_Ki.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -995,25 +934,25 @@ body, html, * {
                     {
                         title: "Aroha and Avaroha",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/15_Come_Quickly_Wont_You/15_Shyama_Sundara_Aroha_Avaroha.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                         image: "./let_the_heart_sing/2_ArohaandAvaroha.webp"
                     },
                     {
                         title: "Pakad",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/15_Come_Quickly_Wont_You/15_Shyama_Sundara_Pakad.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/3_Pakad.webp"
                     },
                     {
                         title: "Song - Shyama sundara ko to ana hi hoga",
                         description: "Understanding high and low sounds in music",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/15_Come_Quickly_Wont_You/15_Shyama_Sundara.mp3",
-                        image: "./let_the_heart_sing/4_Song.webp"
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                        image: "./let_the_heart_sing/./let_the_heart_sing/4_Song.webp"
                     },
                     {
                         title: "Karaoke - Shyama sundara ko to ana hi hoga",
                         description: "Introduction to beat and tempo",
-                        audio: "https://share.chinmayamission.com/let_the_heart_sing/15_Come_Quickly_Wont_You/15_Shyama_Sundara_It.mp3",
+                        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                         image: "./let_the_heart_sing/1_Karaoke.webp"
                     }
                 ],
@@ -1023,7 +962,7 @@ body, html, * {
                      {
                         text: "Notation",
                         icon: "file-pdf",
-                        url: "https://share.chinmayamission.com/let_the_heart_sing/15_Come_Quickly_Wont_You/15_Shyama_Sundar_Ko_Toh.pdf#toolbar=0&navpanes=0&scrollbar=0",
+                        url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf#toolbar=0&navpanes=0&scrollbar=0",
                         type: "primary"
                     }
                 ],
@@ -1036,7 +975,6 @@ body, html, * {
     const contentContainer = document.getElementById('contentContainer');
     const mainContent = document.getElementById('mainContent');
     const overlay = document.getElementById('overlay');
-    const closeBtn = document.getElementById('closeContent');
     
     // Generate chapter list
     chapters.forEach(chapter => {
@@ -1088,9 +1026,9 @@ body, html, * {
             mainContent.classList.remove('popup-animate-out');
             mainContent.classList.add('translate-y-0');
             document.body.style.overflow = 'hidden';
+            // Hide scroll to top button on mobile popup open
             scrollToTopBtn.classList.add('hidden');
             scrollToTopBtn.classList.remove('opacity-100');
-            closeBtn.classList.remove('hidden'); // <-- Show close button
         }
         // Desktop behavior - scroll to top
         else {
@@ -1111,7 +1049,7 @@ body, html, * {
             mainContent.classList.remove('active', 'translate-y-0', 'popup-animate-out');
             overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
             document.body.style.overflow = 'auto';
-            closeBtn.classList.add('hidden'); // <-- Hide close button
+            // Restore scroll to top button visibility based on scroll position
             if (window.scrollY > 200) {
                 scrollToTopBtn.classList.remove('hidden');
                 scrollToTopBtn.classList.add('opacity-100');
@@ -1150,7 +1088,7 @@ body, html, * {
             const audioSectionsHTML = chapter.content.audioSections.map(section => `
                 <div class="media-container bg-light-gray p-5 rounded-xl mb-6 border border-light-gray">
                     <h3 class="audio-section-title text-lg font-medium text-dark mb-2 flex items-center">
-                        <img src="${section.image }" alt="Music" class="h-4 w-4 object-contain mr-2 inline-block align-middle" />
+                        <img src="${section.image || 'ab.webp'}" alt="Music" class="h-4 w-4 object-contain mr-2 inline-block align-middle" />
                         ${section.title}
                     </h3>
                     
@@ -1172,6 +1110,9 @@ body, html, * {
     <div class="relative"> <!-- Container for positioning -->
         <!-- Content wrapper with higher z-index -->
         <div class="relative z-10">
+                 <button class="close-btn fixed top-14 right-4 w-10 h-10 rounded-full bg-light-gray flex items-center justify-center cursor-pointer z-50 border-none text-dark text-xl shadow-[0_2px_10px_rgba(0,0,0,0.1)] transition-transform active:scale-90 md:hidden" id="closeContent">
+                <i class="fas fa-times"></i>
+            </button>
             
             <div class="content-header mb-6">
                 <h1 class="content-title text-2xl md:text-3xl lg:text-4xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2 leading-tight">${chapter.content.title}</h1>
@@ -1220,81 +1161,6 @@ body, html, * {
             overlay.addEventListener('click', closeContent);
         }, window.innerWidth >= 768 ? 250 : 200);
     }
-
-    // Show modal on button click (desktop only)
-if (typeof tipNotesBtn !== 'undefined' && typeof tipNotesModal !== 'undefined') {
-  tipNotesBtn.addEventListener('click', () => {
-    if (window.innerWidth >= 768) {
-      tipNotesModal.classList.remove('opacity-0', 'pointer-events-none');
-      tipNotesModal.classList.add('opacity-100');
-    }
-  });
-}
-
-// Hide modal on close
-tipNotesModal.querySelector('#closeTipNotes').addEventListener('click', () => {
-   tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
-   tipNotesModal.classList.remove('opacity-100');
- });
-
- // Hide modal when clicking outside the modal content (desktop only)
- tipNotesModal.addEventListener('click', (e) => {
-  if (window.innerWidth >= 768 && e.target === tipNotesModal) {
-    tipNotesModal.classList.add('opacity-0', 'pointer-events-none');
-    tipNotesModal.classList.remove('opacity-100');
-  }
-});
-
-(function() {
-  var tipBtn = document.getElementById('tipNotesBtn');
-  var tipModal = document.getElementById('tipNotesModal');
-  var closeTip = document.getElementById('closeTipNotes');
-  var pdfUrl = 'https://share.chinmayamission.com/let_the_heart_sing/Tips_and_Notes.pdf#toolbar=0&navpanes=0&scrollbar=0';
-
-  function isMobile() {
-    // iOS fix: use userAgent to detect iPhone/iPad/iPod or small width
-    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
-  }
-
-  if (tipBtn) {
-    tipBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      if (isMobile()) {
-        // iOS Safari: try anchor click with target _blank, fallback to location.href
-        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-          try {
-            var a = document.createElement('a');
-            a.href = pdfUrl;
-            a.target = '_blank';
-            a.rel = 'noopener';
-            a.style.display = 'none';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-          } catch (err) {
-            window.location.href = pdfUrl;
-          }
-        } else {
-          window.open(pdfUrl, '_blank', 'noopener');
-        }
-        // Do NOT open modal on mobile
-        return;
-      }
-      // Only open modal on desktop
-      if (window.innerWidth >= 768 && tipModal) {
-        tipModal.classList.remove('opacity-0', 'pointer-events-none');
-        tipModal.classList.add('opacity-100');
-      }
-    });
-  }
-  if (closeTip && tipModal) {
-    closeTip.addEventListener('click', function() {
-      tipModal.classList.add('opacity-0', 'pointer-events-none');
-      tipModal.classList.remove('opacity-100');
-    });
-  }
-})();
 </script>
 <!-- Scroll to Top Button -->
 <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 z-50 bg-gradient-to-br from-primary via-accent to-secondary text-white rounded-full w-14 h-14 flex items-center justify-center shadow-xl transition-all duration-300 opacity-0 hover:scale-110 hover:shadow-2xl focus:outline-none border-4 border-white/60 backdrop-blur-md ring-2 ring-accent/30">
@@ -1319,89 +1185,6 @@ scrollToTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 </script>
-
-
-<footer class="w-full bg-white/90 pt-6 pb-3 relative overflow-hidden">
-  <div class="relative z-10 container mx-auto flex flex-col md:flex-row items-center justify-center gap-8 px-4">
-    <!-- Section 1: Artists -->
-    <div class="flex-1 flex flex-col items-center text-center mb-4 md:mb-0">
-      <div class="font-semibold text-primary text-base mb-1 tracking-wide">Artists</div>
-      <div class="text-sm text-gray font-medium">
-        Aparna Devi J <span class="text-accent">- Vocal</span><br>
-        Anuradha Sridhar <span class="text-accent">- Violin</span><br>
-        Nikhil Pandya <span class="text-accent">- Tabla</span><br>
-        VK Vijayakumar <span class="text-accent">- Keyboard</span>
-      </div>
-    </div>
-    <!-- Divider -->
-    <div class="hidden md:block h-14 w-px bg-gradient-to-b from-primary/20 via-accent/20 to-light-gray mx-6"></div>
-    <!-- Section 2: Image Content -->
-    <div class="flex-1 flex flex-col items-center text-center mb-4 md:mb-0">
-      <div class="relative mb-2">
-        <img src="./let_the_heart_sing/logoccmt.png" alt="Logo" class="h-20 w-20 md:h-28 md:w-28 rounded-xl border-white object-contain" />
-      </div>
-    </div>
-    <!-- Divider -->
-    <div class="hidden md:block h-14 w-px bg-gradient-to-b from-accent/20 via-primary/20 to-light-gray mx-6"></div>
-    <!-- Section 3: Musical Pedagogy & Learning Resources -->
-    <div class="flex-1 flex flex-col items-center text-center">
-      <div class="font-semibold text-primary text-base mb-1 tracking-wide">Musical Pedagogy & Learning Resources</div>
-      <div class="text-sm text-gray font-medium">Tara Kini<br>Chinthu Param</div>
-    </div>
-  </div>
-
-  <!-- Gratitude Line mixed into footer, not separated -->
-  <div
-    class="w-full text-center py-2 px-3 text-xs text-gray font-medium tracking-wide mt-4 mb-2 rounded transition-all duration-500"
-    style="background: linear-gradient(90deg, #fff 60%, rgba(255,255,255,0.7) 100%) center/cover; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
-  >
-Chinmaya Mission expresses heartfelt gratitude to Anuradha Shridhar, whose time, talent, and meticulous effort in recording and unifying the soundtracks brought the music to life.  </div>
-
-  <!-- Social Media Links -->
-  <div class="flex flex-wrap justify-center gap-4 md:gap-6 mt-1 mb-1 z-10 relative">
-    <a href="https://www.facebook.com/ChinmayaMission" target="_blank" rel="noopener" aria-label="Facebook"
-      class="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-light-gray shadow transition hover:bg-primary hover:text-white group">
-      <i class="fab fa-facebook-f text-lg group-hover:text-white transition"></i>
-    </a>
-    <a href="https://www.instagram.com/global_chinmayamission?igsh=a2F2aDhlMjRsc3Fy" target="_blank" rel="noopener" aria-label="Instagram"
-      class="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-light-gray shadow transition hover:bg-accent hover:text-white group">
-      <i class="fab fa-instagram text-lg group-hover:text-white transition"></i>
-    </a>
-    <a href="https://youtube.com/@chinmayachannel?si=aOZ-0JMdezhqvYj4" target="_blank" rel="noopener" aria-label="YouTube"
-      class="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-light-gray shadow transition hover:bg-red-600 hover:text-white group">
-      <i class="fab fa-youtube text-lg group-hover:text-white transition"></i>
-    </a>
-  </div>
-  <div class="text-center text-xs text-gray-400 mt-2 z-10 relative">
-    Central Chinmaya Mission Trust &copy; 2025, Mumbai, India
-  </div>
-</footer>
-
-<style>
-  @media (max-width: 768px) {
-    footer .container {
-      flex-direction: column !important;
-      gap: 1.5rem !important;
-    }
-    footer .flex-1 {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-    footer img {
-      height: 4.5rem !important;
-      width: 4.5rem !important;
-    }
-    footer .w-full[style] {
-      font-size:  0.8rem !important;
-      padding-left: 0.5rem !important;
-      padding-right: 0.5rem !important;
-      white-space: normal !important;
-      text-overflow: clip !important;
-    }
-    footer .flex.flex-wrap {
-      gap: 1rem !important;
-    }
-  }
-</style>
+ 
 </body>
 </html>
