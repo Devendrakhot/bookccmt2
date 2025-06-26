@@ -194,7 +194,7 @@ body, html, * {
   }
 }
 
-/* Make chapter popup scrollable on iOS mobile */
+/* Make chapter popup scrollable on iOS/mobile */
 @media (max-width: 767px) {
   #mainContent.active {
     position: fixed !important;
@@ -1103,10 +1103,15 @@ body, html, * {
             mainContent.classList.add('active', 'popup-animate-in');
             mainContent.classList.remove('popup-animate-out');
             mainContent.classList.add('translate-y-0');
-            document.body.style.overflow = 'hidden';
+            // iOS fix: do not block body scroll, just rely on overlay
+            if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                document.body.style.overflow = '';
+            } else {
+                document.body.style.overflow = 'hidden';
+            }
             scrollToTopBtn.classList.add('hidden');
             scrollToTopBtn.classList.remove('opacity-100');
-            closeBtn.classList.remove('hidden'); // <-- Show close button
+            closeBtn.classList.remove('hidden');
         }
         // Desktop behavior - scroll to top
         else {
