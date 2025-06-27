@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Let the Heart Sing</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -193,6 +193,30 @@ body, html, * {
     display: block;
   }
 }
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .col {
+    flex: 1 1 300px;
+    min-width: 200px;
+  }
+
+  @media (max-width: 600px) {
+    .row {
+      flex-direction: column;
+    }
+  }
     </style>
 </head>
 <body class="font-poppins bg-light text-dark min-h-screen overflow-x-hidden">
@@ -220,7 +244,7 @@ body, html, * {
         </button>
         <div class="marquee-container relative w-full overflow-hidden whitespace-nowrap py-3 px-4">
           <div class="marquee-track inline-block animate-marquee hover:[animation-play-state:paused]">
-            <span class="text-sm md:text-base font-medium text-dark">
+            <span class="text-sm md:text-base font-medium text-dark"></span>
               Discover the joy of singing with <span class="font-semibold text-primary">Let the Heart Sing!</span> Listen, sing along, and learn. Use the book for reflection exercises, musical activities, and fun facts. Get your copy  <span class="underline text-accent"><a href="https://eshop.chinmayamission.com/" target="_blank">here</a></span>.
             </span>
             <span class="mx-24"></span>
@@ -1252,8 +1276,8 @@ tipNotesModal.querySelector('#closeTipNotes').addEventListener('click', () => {
   var pdfUrl = 'https://share.chinmayamission.com/let_the_heart_sing/Tips_and_Notes.pdf#toolbar=0&navpanes=0&scrollbar=0';
 
   function isMobile() {
-    // Use userAgent to detect Android or small width
-    return /Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+    // iOS fix: use userAgent to detect iPhone/iPad/iPod or small width
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
   }
 
   if (tipBtn) {
@@ -1261,7 +1285,23 @@ tipNotesModal.querySelector('#closeTipNotes').addEventListener('click', () => {
       e.preventDefault();
       e.stopPropagation();
       if (isMobile()) {
-        window.open(pdfUrl, '_blank', 'noopener');
+        // iOS Safari: try anchor click with target _blank, fallback to location.href
+        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+          try {
+            var a = document.createElement('a');
+            a.href = pdfUrl;
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          } catch (err) {
+            window.location.href = pdfUrl;
+          }
+        } else {
+          window.open(pdfUrl, '_blank', 'noopener');
+        }
         // Do NOT open modal on mobile
         return;
       }
@@ -1337,7 +1377,7 @@ scrollToTopBtn.addEventListener('click', () => {
   <!-- Gratitude Line mixed into footer, not separated -->
   <div
     class="w-full text-center py-2 px-3 text-xs text-gray font-medium tracking-wide mt-4 mb-2 rounded transition-all duration-500"
-    style="background: linear-gradient(90deg, #fff 60%, rgba(255,255,255,0.7) 100%) center/cover; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+    style="background: linear-gradient(90deg, #fff  60%, rgba(255,255,255,0.7) 100%) center/cover; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
   >
 Chinmaya Mission expresses heartfelt gratitude to Anuradha Shridhar, whose time, talent, and meticulous effort in recording and unifying the soundtracks brought the music to life.  </div>
 
